@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Product</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="product-body">
+
+
+<!-- NAVBAR -->
+
+<header class="product-navbar">
+
+<div class="nav-left">
+
+<a href="shop.html" class="back-btn">⬅</a>
+
+<h2 class="logo"></h2>
+
+</div>
+
+
+<div class="nav-links">
+
+<a href="#">Bags</a>
+<a href="#">Jewellery</a>
+<a href="#">Clothes</a>
+<a href="#">Decor</a>
+
+</div>
+
+
+<div class="nav-icons">
+
+<span>🔍</span>
+<span>👤</span>
+<a href="cart.html">🛒</a>
+
+</div>
+
+</header>
+
+
+
+<!-- PRODUCT SECTION -->
+
+<section class="product-container">
+
+
+<div class="product-images">
+    <span class="wishlist-heart" onclick="addToWishlist()">♡</span>
+
+<img class="main-img" id="productImg" src="images/crochet purse.jpeg" onclick="zoomImage()">
+
+<div class="thumbnail-row">
+
+<img src="images/croc purse1.jpeg" onclick="changeImage(this)">
+<img src="images/croc purse 3.jpeg"onclick="changeImage(this)">
+<img src="images/croc purse 2.jpeg"onclick="changeImage(this)">
+
+</div>
+
+</div>
+
+
+
+<div class="product-details">
+
+<h1>Crochet Purse</h1>
+
+<div class="star-rating">
+
+<span onclick="rate(1)">⭐</span>
+<span onclick="rate(2)">⭐</span>
+<span onclick="rate(3)">⭐</span>
+<span onclick="rate(4)">⭐</span>
+<span onclick="rate(5)">⭐</span>
+
+</div>
+
+<p id="rating-result"></p>
+<h2 class="price">₹1200</h2>
+<p class="description">
+
+Beautiful handmade crochet purse crafted by skilled women artisans.
+Perfect for everyday use and traditional outfits.
+
+</p>
+<div class="quantity-box">
+
+<button class="qty-btn" onclick="changeQty(-1)">-</button>
+
+<input type="number" id="qty" value="1" min="1">
+
+<button class="qty-btn" onclick="changeQty(1)">+</button>
+
+</div>
+
+
+<div class="buttons">
+
+<button id="cart-btn" class="cart-btn" onclick="addToCart()">Add to Cart</button>
+
+<button class="buy-btn" onclick="buyNow()">Buy Now</button>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- PRODUCT INFO -->
+
+<section class="product-info-section">
+
+<h3>Product Details</h3>
+
+<ul>
+
+<li>Material: Cotton Yarn</li>
+<li>Handmade Product</li>
+<li>Color: Black & White</li>
+<li>Weight: 300g</li>
+
+</ul>
+
+</section>
+
+
+
+<!-- REVIEWS -->
+
+<section class="reviews">
+
+<h3>Customer Reviews</h3>
+
+<div class="review">
+
+⭐ ⭐ ⭐ ⭐ ☆  
+<p><b>Anita:</b> Very beautiful handmade purse!</p>
+
+</div>
+
+
+<div class="review">
+
+⭐ ⭐ ⭐ ⭐ ⭐  
+<p><b>Riya:</b> Amazing quality and design.</p>
+
+</div>
+
+</section>
+
+
+
+<!-- SIMILAR PRODUCTS -->
+
+<section class="similar">
+
+<h3>Similar Products</h3>
+
+
+<div class="similar-row">
+
+<div class="similar-card">
+
+<img src="images/purse1.jpeg">
+
+<p>Handmade Bag</p>
+
+<span>₹1499</span>
+
+</div>
+
+
+
+<div class="similar-card">
+
+<img src="images/purse3.jpeg">
+
+<p>Combo Purse</p>
+
+<span>₹1575</span>
+
+</div>
+
+
+
+<div class="similar-card">
+
+<img src="images/purse4.jpeg">
+
+<p>Home Decor</p>
+
+<span>₹1350</span>
+
+</div>
+
+<div class="similar-card">
+
+<img src="images/purse 5.jpeg">
+
+<p>Blue Purse</p>
+
+<span>₹1399</span>
+
+</div>
+
+
+<div class="similar-card">
+
+<img src="images/purse2.jpeg">
+
+<p>White & Red Purse</p>
+
+<span>₹1799</span>
+
+</div>
+
+</div>
+
+</section>
+<script>
+
+function rate(stars){
+
+document.getElementById("rating-result").innerText =
+"You rated " + stars + " stars";
+
+}
+
+</script>
+<div id="imageModal" class="image-modal" onclick="closeImage()">
+
+<img id="zoomedImg">
+</div>
+
+<script src="script.js"></script>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Cart</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="cart-body">
+
+<h1 class="cart-title">Shopping Bag</h1>
+
+<div id="cart-container"></div>
+
+<div class="cart-total">
+
+<h3>Total: ₹<span id="total-price">0</span></h3>
+
+<button onclick="checkout()" class="checkout-btn">
+Proceed to Checkout
+</button>
+
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let container = document.getElementById("cart-container");
+
+let total = 0;
+
+cart.forEach((item,index)=>{
+
+total += item.price * item.quantity;
+
+container.innerHTML += `
+
+<div class="cart-item">
+
+<img src="${item.image}">
+
+<div>
+
+<h3>${item.name}</h3>
+
+<p>₹${item.price}</p>
+
+<div class="qty-box">
+
+<button onclick="changeQty(${index},-1)">-</button>
+
+<span>${item.quantity}</span>
+
+<button onclick="changeQty(${index},1)">+</button>
+
+</div>
+
+<button onclick="removeItem(${index})">Remove</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+function changeQty(index,value){
+
+cart[index].quantity += value;
+
+if(cart[index].quantity < 1){
+cart[index].quantity = 1;
+}
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+location.reload();
+
+}
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+location.reload();
+
+}
+
+document.getElementById("total-price").innerText = total;
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+location.reload();
+
+}
+
+function checkout(){
+
+window.location.href="shipping.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
