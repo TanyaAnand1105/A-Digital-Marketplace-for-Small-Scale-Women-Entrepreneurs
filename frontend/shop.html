@@ -1,169 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
-<title>Shop</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="shop-page">
 
-<header class="shop-navbar">
+    <!-- NAVBAR -->
+    <header class="shop-navbar">
 
-    <a href="index.html" class="back-btn">⬅</a>
-<h1 class="logo">Handmade Market</h1>
+        <a href="index.html" class="back-btn">⬅</a>
+        <h1 class="logo">Handmade Market</h1>
 
-<div class="search-box">
-<input type="text" placeholder="Search handmade products...">
-<button>🔍</button>
-</div>
+        <div class="search-box">
+            <input type="text" placeholder="Search handmade products...">
+            <button>🔍</button>
+        </div>
 
+        <div class="nav-icons">
 
-<div class="nav-icons">
+            <a href="login.html" class="icon-box">
+                <span class="icon">😊</span>
+                <span>Account</span>
+            </a>
 
-<a href="login.html" class="icon-box">
-<span class="icon">😊</span>
-<span>Account</span>
-</a>
+            <a href="wishlist.html" class="icon-box">
+                <span class="icon">❤</span>
+                <span>Wishlist</span>
+            </a>
 
-<a href="wishlist.html" class="icon-box">
-<span class="icon">❤</span>
-<span>Wishlist</span>
-</a>
+            <a href="cart.html" class="icon-box">
+                <span class="icon">🛒</span>
+                <span>Cart</span>
+            </a>
 
-<a href="cart.html" class="icon-box">
-<span class="icon">🛒</span>
-<span>Cart</span>
-</a>
+        </div>
 
-</div>
+    </header>
 
-</header>
+    <!-- CATEGORY SECTION -->
+    <section class="categories">
 
+        <div class="category">
+            <img src="images/Bags.jpeg" alt="Bags">
+            <p>Bags</p>
+        </div>
 
-<!-- CATEGORY SECTION -->
+        <div class="category">
+            <img src="images/Jewellery.jpeg" alt="Jewellery">
+            <p>Jewellery</p>
+        </div>
 
-<section class="categories">
+        <div class="category">
+            <img src="images/Clothes.jpeg" alt="Clothes">
+            <p>Clothes</p>
+        </div>
 
-<div class="category">
-<img src="images/Bags.jpeg">
-<p>Bags</p>
-</div>
+        <div class="category">
+            <img src="images/Candles.jpeg" alt="Candles">
+            <p>Candles</p>
+        </div>
 
-<div class="category">
-<img src="images/Jewellery.jpeg">
-<p>Jewellery</p>
-</div>
+        <div class="category">
+            <img src="images/Crochet.jpeg" alt="Flowers">
+            <p>Flowers</p>
+        </div>
 
-<div class="category">
-<img src="images/CLothes.jpeg">
-<p>Clothes</p>
-</div>
+    </section>
 
-<div class="category">
-<img src="images/Candles.jpeg">
-<p>Candles</p>
-</div>
+    <!-- DEALS -->
+    <h2 class="section-title">Deals of the Day</h2>
 
-<div class="category">
-<img src="images/Crochet.jpeg">
-<p>Flowers</p>
-</div>
+    <section class="products">
 
-</section>
+        <div class="product-card">
+            <a href="product.html">
+                <img src="images/crochet purse.jpeg" alt="Purse">
+            </a>
+            <h3>Purse</h3>
+            <p>₹1200</p>
+            <button>Add to Cart</button>
+        </div>
 
+        <div class="product-card">
+            <a href="product.html?name=Madhubani Saree&price=2000&image=images/Madhubani Sarees.jpeg">
+                <img src="images/Madhubani Sarees.jpeg" alt="Madhubani Saree">
+            </a>
+            <h3>Madhubani Saree</h3>
+            <p>₹2000</p>
+            <button>Add to Cart</button>
+        </div>
 
-<!-- DEALS -->
+        <div class="product-card">
+            <a href="product.html">
+                <img src="images/Bedsheet.jpeg" alt="Applique Bedsheet">
+            </a>
+            <h3>Applique Bedsheet</h3>
+            <p>₹1800</p>
+            <button>Add to Cart</button>
+        </div>
 
-<h2 class="section-title">Deals of the Day</h2>
+        <div class="product-card">
+            <a href="product.html">
+                <img src="images/Clay vase.jpeg" alt="Clay Vase">
+            </a>
+            <h3>Clay Vase</h3>
+            <p>₹749</p>
+            <button>Add to Cart</button>
+        </div>
 
-<section class="products">
+    </section>
 
-<div class="product-card">
-    <a href="product.html">
+    <!-- PROMO BANNER -->
+    <section class="promo">
 
-<img src="images/crochet purse.jpeg">
-</a>
+        <a href="shop.html" class="promo-card">
+            <img src="images/Crochet Toys.jpeg" alt="Crochet Toys">
+            <h3>Crochet Toys</h3>
+            <p>Up to 60% Off</p>
+        </a>
 
-<h3>Purse</h3>
+        <a href="shop.html" class="promo-card">
+            <img src="images/Handmade Baskets.jpeg" alt="Handmade Baskets">
+            <h3>Handmade Baskets</h3>
+            <p>Up to 70% Off</p>
+        </a>
 
-<p>1200</p>
+        <a href="shop.html" class="promo-card">
+            <img src="images/Home Decor.jpeg" alt="Home Decor">
+            <h3>Home Decor</h3>
+            <p>Up to 45% Off</p>
+        </a>
 
-<button>Add to Cart</button>
+    </section>
 
-</div>
-
-
-<div class="product-card">
-    <a href="product.html">
-
-
-<img src="images/Madhubani Sarees.jpeg">
-    </a>
-<h3>Madhubani Saree</h3>
-
-<p>2000</p>
-
-<button>Add to Cart</button>
-
-</div>
-
-
-<div class="product-card">
-
-<img src="images/Bedsheet.jpeg">
-
-<h3>Applique Bedsheet</h3>
-
-<p>1800</p>
-
-<button>Add to Cart</button>
-
-</div>
-
-
-<div class="product-card">
-
-<img src="images/Clay vase.jpeg">
-
-<h3>Clay Vase</h3>
-
-<p>749
-</p>
-
-<button>Add to Cart</button>
-
-</div>
-
-</section>
-
-
-<!-- PROMO BANNER -->
-
-<section class="promo">
-
-<a href="shop.html" class="promo-card">
-<img src="images/Crochet Toys.jpeg">
-<h3>Crochet toys</h3>
-<p>Up to 60% Off</p>
-</a>
-
-
-<a href="shop.html" class="promo-card">
-<img src="images/Handmade Baskets.jpeg">
-<h3>Handmade Baskets</h3>
-<p>Up to 70% Off</p>
-</a>
-
-
-<a href="shop.html" class="promo-card">
-<img src="images/Home Decor.jpeg">
-<h3>Home Decor</h3>
-<p>Up to 45% Off</p>
-</a>
+</body>
+</html>
 
 </section>
 </section>
