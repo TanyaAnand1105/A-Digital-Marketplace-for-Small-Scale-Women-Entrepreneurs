@@ -100,6 +100,7 @@ if(image) document.getElementById("product-image").src = image;
 // DATA
 const data = {
 
+    // 👜 PURSE
     purse: {
         details: `
         <li>Material: Cotton Yarn</li>
@@ -122,6 +123,7 @@ const data = {
         `
     },
 
+    // 👗 SAREE
     saree: {
         details: `
         <li>Material: Cotton Silk</li>
@@ -141,6 +143,29 @@ const data = {
         similar: `
         <div class="similar-card"><img src="images/saree4.jpeg"><p>Silk Saree</p><span>₹2500</span></div>
         <div class="similar-card"><img src="images/saree5.jpeg"><p>Printed Saree</p><span>₹1800</span></div>
+        `
+    },
+
+    // 🏠 DECOR (Bedsheet + Vase)
+    decor: {
+        details: `
+        <li>Material: Premium Fabric / Clay</li>
+        <li>Handcrafted Product</li>
+        <li>Perfect for Home Decoration</li>
+        `,
+        reviews: `
+        <h3>Customer Reviews</h3>
+        <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Simran:</b> Looks amazing at home 😍</p></div>
+        <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Karan:</b> Good quality 👍</p></div>
+        `,
+        images: [
+            "images/decor1.jpeg",
+            "images/decor2.jpeg",
+            "images/decor3.jpeg"
+        ],
+        similar: `
+        <div class="similar-card"><img src="images/decor4.jpeg"><p>Wall Decor</p><span>₹1200</span></div>
+        <div class="similar-card"><img src="images/decor5.jpeg"><p>Showpiece</p><span>₹999</span></div>
         `
     }
 
