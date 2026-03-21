@@ -8,7 +8,6 @@
 
 <body class="product-body">
 
-<!-- NAVBAR -->
 <header class="product-navbar">
     <div class="nav-left">
         <a href="shop.html" class="back-btn">⬅</a>
@@ -16,24 +15,17 @@
     </div>
 </header>
 
-<!-- PRODUCT SECTION -->
 <section class="product-container">
 
-    <!-- IMAGES -->
     <div class="product-images">
-
-        <img class="main-img" id="product-image" src="images/crochet purse.jpeg">
-
+        <img class="main-img" id="product-image" src="">
         <div class="thumbnail-row"></div>
-
     </div>
 
-    <!-- DETAILS -->
     <div class="product-details">
 
-        <h1 id="product-name">Product Name</h1>
+        <h1 id="product-name"></h1>
 
-        <!-- Rating -->
         <div class="star-rating">
             <span onclick="rate(1)">⭐</span>
             <span onclick="rate(2)">⭐</span>
@@ -44,20 +36,18 @@
 
         <p id="rating-result"></p>
 
-        <h2 class="price" id="product-price">₹0</h2>
+        <h2 class="price" id="product-price"></h2>
 
         <p class="description">
             Beautiful handmade product crafted by artisans.
         </p>
 
-        <!-- Quantity -->
         <div class="quantity-box">
             <button onclick="changeQty(-1)">-</button>
             <input type="number" id="qty" value="1" min="1">
             <button onclick="changeQty(1)">+</button>
         </div>
 
-        <!-- Buttons -->
         <div class="buttons">
             <button onclick="addToCart()">Add to Cart</button>
             <button onclick="buyNow()">Buy Now</button>
@@ -67,7 +57,7 @@
 
 </section>
 
-<!-- PRODUCT DETAILS -->
+<!-- DETAILS -->
 <section class="product-info-section">
     <h3>Product Details</h3>
     <ul></ul>
@@ -82,7 +72,6 @@
     <div class="similar-row"></div>
 </section>
 
-<!-- JS -->
 <script>
 
 const params = new URLSearchParams(window.location.search);
@@ -90,105 +79,122 @@ const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 const price = params.get("price");
 const image = params.get("image");
-const type = params.get("type");
 
-// basic
-if(name) document.getElementById("product-name").innerText = name;
-if(price) document.getElementById("product-price").innerText = "₹" + price;
-if(image) document.getElementById("product-image").src = image;
+document.getElementById("product-name").innerText = name;
+document.getElementById("product-price").innerText = "₹" + price;
+document.getElementById("product-image").src = image;
 
-// DATA
-const data = {
+// 🔥 FULL PRODUCT DATABASE
+const products = {
 
-    // 👜 PURSE
-    purse: {
-        details: `
-        <li>Material: Cotton Yarn</li>
-        <li>Handmade by Women Artisans</li>
-        <li>Lightweight & Stylish</li>
-        `,
-        reviews: `
-        <h3>Customer Reviews</h3>
-        <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Anita:</b> Beautiful purse ❤️</p></div>
-        <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Pooja:</b> Worth the price 👍</p></div>
-        `,
-        images: [
-            "images/croc purse1.jpeg",
-            "images/croc purse 2.jpeg",
-            "images/croc purse 3.jpeg"
-        ],
-        similar: `
-        <div class="similar-card"><img src="images/purse1.jpeg"><p>Handmade Bag</p><span>₹1499</span></div>
-        <div class="similar-card"><img src="images/purse2.jpeg"><p>Red Purse</p><span>₹1799</span></div>
-        `
-    },
+"Purse": {
+    details: `
+    <li>Material: Cotton Yarn</li>
+    <li>Handmade Crochet Design</li>
+    <li>Lightweight & Stylish</li>
+    `,
+    images: [
+        "images/croc purse1.jpeg",
+        "images/croc purse 2.jpeg",
+        "images/croc purse 3.jpeg"
+    ],
+    reviews: `
+    <h3>Customer Reviews</h3>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Anita:</b> Beautiful purse ❤️</p></div>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Pooja:</b> Worth the price 👍</p></div>
+    `,
+    similar: `
+    <div class="similar-card"><img src="images/purse1.jpeg"><p>Handmade Bag</p><span>₹1499</span></div>
+    <div class="similar-card"><img src="images/purse2.jpeg"><p>Red Purse</p><span>₹1799</span></div>
+    `
+},
 
-    // 👗 SAREE
-    saree: {
-        details: `
-        <li>Material: Cotton Silk</li>
-        <li>Madhubani Hand Paint</li>
-        <li>Perfect for Festive Wear</li>
-        `,
-        reviews: `
-        <h3>Customer Reviews</h3>
-        <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Riya:</b> Stunning saree 😍</p></div>
-        <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Neha:</b> Loved the print!</p></div>
-        `,
-        images: [
-            "images/saree1.jpeg",
-            "images/saree2.jpeg",
-            "images/saree3.jpeg"
-        ],
-        similar: `
-        <div class="similar-card"><img src="images/saree4.jpeg"><p>Silk Saree</p><span>₹2500</span></div>
-        <div class="similar-card"><img src="images/saree5.jpeg"><p>Printed Saree</p><span>₹1800</span></div>
-        `
-    },
+"Madhubani Saree": {
+    details: `
+    <li>Material: Cotton Silk</li>
+    <li>Madhubani Hand Painting</li>
+    <li>Perfect for Festivals</li>
+    `,
+    images: [
+        "images/saree1.jpeg",
+        "images/saree2.jpeg",
+        "images/saree3.jpeg"
+    ],
+    reviews: `
+    <h3>Customer Reviews</h3>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Riya:</b> Stunning saree 😍</p></div>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Neha:</b> Loved the design!</p></div>
+    `,
+    similar: `
+    <div class="similar-card"><img src="images/saree4.jpeg"><p>Silk Saree</p><span>₹2500</span></div>
+    <div class="similar-card"><img src="images/saree5.jpeg"><p>Printed Saree</p><span>₹1800</span></div>
+    `
+},
 
-    // 🏠 DECOR (Bedsheet + Vase)
-    decor: {
-        details: `
-        <li>Material: Premium Fabric / Clay</li>
-        <li>Handcrafted Product</li>
-        <li>Perfect for Home Decoration</li>
-        `,
-        reviews: `
-        <h3>Customer Reviews</h3>
-        <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Simran:</b> Looks amazing at home 😍</p></div>
-        <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Karan:</b> Good quality 👍</p></div>
-        `,
-        images: [
-            "images/decor1.jpeg",
-            "images/decor2.jpeg",
-            "images/decor3.jpeg"
-        ],
-        similar: `
-        <div class="similar-card"><img src="images/decor4.jpeg"><p>Wall Decor</p><span>₹1200</span></div>
-        <div class="similar-card"><img src="images/decor5.jpeg"><p>Showpiece</p><span>₹999</span></div>
-        `
-    }
+"Applique Bedsheet": {
+    details: `
+    <li>Material: Cotton Fabric</li>
+    <li>Applique Work Design</li>
+    <li>King Size Bedsheet</li>
+    `,
+    images: [
+        "images/bed1.jpeg",
+        "images/bed2.jpeg",
+        "images/bed3.jpeg"
+    ],
+    reviews: `
+    <h3>Customer Reviews</h3>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Simran:</b> Very comfortable 😍</p></div>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Rahul:</b> Nice fabric 👍</p></div>
+    `,
+    similar: `
+    <div class="similar-card"><img src="images/bed4.jpeg"><p>Printed Bedsheet</p><span>₹1500</span></div>
+    <div class="similar-card"><img src="images/bed5.jpeg"><p>Cotton Bedsheet</p><span>₹1700</span></div>
+    `
+},
+
+"Clay Vase": {
+    details: `
+    <li>Material: Natural Clay</li>
+    <li>Handcrafted Design</li>
+    <li>Perfect for Home Decor</li>
+    `,
+    images: [
+        "images/vase1.jpeg",
+        "images/vase2.jpeg",
+        "images/vase3.jpeg"
+    ],
+    reviews: `
+    <h3>Customer Reviews</h3>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Karan:</b> Looks premium 😍</p></div>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Meena:</b> Good quality 👍</p></div>
+    `,
+    similar: `
+    <div class="similar-card"><img src="images/vase4.jpeg"><p>Decor Vase</p><span>₹999</span></div>
+    <div class="similar-card"><img src="images/vase5.jpeg"><p>Clay Pot</p><span>₹799</span></div>
+    `
+}
 
 };
 
-// APPLY
-if(type && data[type]){
+// 🔥 APPLY DATA
+if(products[name]){
 
-    document.querySelector(".product-info-section ul").innerHTML = data[type].details;
+    document.querySelector(".product-info-section ul").innerHTML = products[name].details;
 
-    document.querySelector(".reviews").innerHTML = data[type].reviews;
+    document.querySelector(".reviews").innerHTML = products[name].reviews;
 
-    const thumbRow = document.querySelector(".thumbnail-row");
-    thumbRow.innerHTML = "";
+    const thumb = document.querySelector(".thumbnail-row");
+    thumb.innerHTML = "";
 
-    data[type].images.forEach(img => {
-        thumbRow.innerHTML += `<img src="${img}" onclick="changeImage(this)">`;
+    products[name].images.forEach(img => {
+        thumb.innerHTML += `<img src="${img}" onclick="changeImage(this)">`;
     });
 
-    document.querySelector(".similar-row").innerHTML = data[type].similar;
+    document.querySelector(".similar-row").innerHTML = products[name].similar;
 }
 
-// thumbnail click
+// change image
 function changeImage(el){
     document.getElementById("product-image").src = el.src;
 }
