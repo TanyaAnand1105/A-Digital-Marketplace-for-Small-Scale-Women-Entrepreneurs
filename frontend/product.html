@@ -19,15 +19,19 @@
 <!-- PRODUCT SECTION -->
 <section class="product-container">
 
-    <!-- LEFT: IMAGE -->
+    <!-- IMAGES -->
     <div class="product-images">
+
         <img class="main-img" id="product-image" src="images/crochet purse.jpeg">
+
+        <div class="thumbnail-row"></div>
+
     </div>
 
-    <!-- RIGHT: DETAILS -->
+    <!-- DETAILS -->
     <div class="product-details">
 
-        <h1 id="product-name">Crochet Purse</h1>
+        <h1 id="product-name">Product Name</h1>
 
         <!-- Rating -->
         <div class="star-rating">
@@ -40,7 +44,7 @@
 
         <p id="rating-result"></p>
 
-        <h2 class="price" id="product-price">₹1200</h2>
+        <h2 class="price" id="product-price">₹0</h2>
 
         <p class="description">
             Beautiful handmade product crafted by artisans.
@@ -66,94 +70,111 @@
 <!-- PRODUCT DETAILS -->
 <section class="product-info-section">
     <h3>Product Details</h3>
-    <ul>
-        <li>Material: Cotton Yarn</li>
-        <li>Handmade Product</li>
-        <li>Color: Black & White</li>
-        <li>Weight: 300g</li>
-    </ul>
+    <ul></ul>
 </section>
 
 <!-- REVIEWS -->
-<section class="reviews">
-    <h3>Customer Reviews</h3>
+<section class="reviews"></section>
 
-    <div class="review">
-        ⭐ ⭐ ⭐ ⭐ ☆  
-        <p><b>Anita:</b> Very beautiful handmade purse!</p>
-    </div>
-
-    <div class="review">
-        ⭐ ⭐ ⭐ ⭐ ⭐  
-        <p><b>Riya:</b> Amazing quality and design.</p>
-    </div>
-
-</section>
-
-<!-- SIMILAR PRODUCTS -->
+<!-- SIMILAR -->
 <section class="similar">
-
     <h3>Similar Products</h3>
-
-    <div class="similar-row">
-
-        <div class="similar-card">
-            <img src="images/purse1.jpeg">
-            <p>Handmade Bag</p>
-            <span>₹1499</span>
-        </div>
-
-        <div class="similar-card">
-            <img src="images/purse3.jpeg">
-            <p>Combo Purse</p>
-            <span>₹1575</span>
-        </div>
-
-        <div class="similar-card">
-            <img src="images/purse4.jpeg">
-            <p>Home Decor</p>
-            <span>₹1350</span>
-        </div>
-
-        <div class="similar-card">
-            <img src="images/purse5.jpeg">
-            <p>Blue Purse</p>
-            <span>₹1399</span>
-        </div>
-
-    </div>
-
+    <div class="similar-row"></div>
 </section>
 
 <!-- JS -->
 <script>
 
-// ⭐ Dynamic data from URL
 const params = new URLSearchParams(window.location.search);
 
 const name = params.get("name");
 const price = params.get("price");
 const image = params.get("image");
+const type = params.get("type");
 
-if(name){
-    document.getElementById("product-name").innerText = name;
+// basic
+if(name) document.getElementById("product-name").innerText = name;
+if(price) document.getElementById("product-price").innerText = "₹" + price;
+if(image) document.getElementById("product-image").src = image;
+
+// DATA
+const data = {
+
+    purse: {
+        details: `
+        <li>Material: Cotton Yarn</li>
+        <li>Handmade by Women Artisans</li>
+        <li>Lightweight & Stylish</li>
+        `,
+        reviews: `
+        <h3>Customer Reviews</h3>
+        <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Anita:</b> Beautiful purse ❤️</p></div>
+        <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Pooja:</b> Worth the price 👍</p></div>
+        `,
+        images: [
+            "images/croc purse1.jpeg",
+            "images/croc purse 2.jpeg",
+            "images/croc purse 3.jpeg"
+        ],
+        similar: `
+        <div class="similar-card"><img src="images/purse1.jpeg"><p>Handmade Bag</p><span>₹1499</span></div>
+        <div class="similar-card"><img src="images/purse2.jpeg"><p>Red Purse</p><span>₹1799</span></div>
+        `
+    },
+
+    saree: {
+        details: `
+        <li>Material: Cotton Silk</li>
+        <li>Madhubani Hand Paint</li>
+        <li>Perfect for Festive Wear</li>
+        `,
+        reviews: `
+        <h3>Customer Reviews</h3>
+        <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Riya:</b> Stunning saree 😍</p></div>
+        <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Neha:</b> Loved the print!</p></div>
+        `,
+        images: [
+            "images/saree1.jpeg",
+            "images/saree2.jpeg",
+            "images/saree3.jpeg"
+        ],
+        similar: `
+        <div class="similar-card"><img src="images/saree4.jpeg"><p>Silk Saree</p><span>₹2500</span></div>
+        <div class="similar-card"><img src="images/saree5.jpeg"><p>Printed Saree</p><span>₹1800</span></div>
+        `
+    }
+
+};
+
+// APPLY
+if(type && data[type]){
+
+    document.querySelector(".product-info-section ul").innerHTML = data[type].details;
+
+    document.querySelector(".reviews").innerHTML = data[type].reviews;
+
+    const thumbRow = document.querySelector(".thumbnail-row");
+    thumbRow.innerHTML = "";
+
+    data[type].images.forEach(img => {
+        thumbRow.innerHTML += `<img src="${img}" onclick="changeImage(this)">`;
+    });
+
+    document.querySelector(".similar-row").innerHTML = data[type].similar;
 }
 
-if(price){
-    document.getElementById("product-price").innerText = "₹" + price;
+// thumbnail click
+function changeImage(el){
+    document.getElementById("product-image").src = el.src;
 }
 
-if(image){
-    document.getElementById("product-image").src = image;
-}
-
-// ⭐ Rating
+// rating
 function rate(stars){
     document.getElementById("rating-result").innerText =
     "You rated " + stars + " stars";
 }
 
-// ⭐ Quantity
+// qty
 function changeQty(val){
     let qty = document.getElementById("qty");
     let current = parseInt(qty.value);
@@ -162,7 +183,7 @@ function changeQty(val){
     }
 }
 
-// ⭐ Cart
+// cart
 function addToCart(){
     alert("Added to cart ✅");
 }
