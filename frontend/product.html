@@ -8,51 +8,127 @@
 
 <body class="product-body">
 
+<!-- NAVBAR -->
 <header class="product-navbar">
-<div class="nav-left">
-<a href="shop.html" class="back-btn">⬅</a>
-<h2 class="logo">Handmade Market</h2>
-</div>
+    <div class="nav-left">
+        <a href="shop.html" class="back-btn">⬅</a>
+        <h2 class="logo">Handmade Market</h2>
+    </div>
 </header>
 
+<!-- PRODUCT SECTION -->
 <section class="product-container">
 
-<div class="product-images">
+    <!-- LEFT: IMAGE -->
+    <div class="product-images">
+        <img class="main-img" id="product-image" src="images/crochet purse.jpeg">
+    </div>
 
-<img class="main-img" id="product-image" src="images/crochet purse.jpeg">
+    <!-- RIGHT: DETAILS -->
+    <div class="product-details">
 
-</div>
+        <h1 id="product-name">Crochet Purse</h1>
 
-<div class="product-details">
+        <!-- Rating -->
+        <div class="star-rating">
+            <span onclick="rate(1)">⭐</span>
+            <span onclick="rate(2)">⭐</span>
+            <span onclick="rate(3)">⭐</span>
+            <span onclick="rate(4)">⭐</span>
+            <span onclick="rate(5)">⭐</span>
+        </div>
 
-<h1 id="product-name">Crochet Purse</h1>
+        <p id="rating-result"></p>
 
-<p id="rating-result"></p>
+        <h2 class="price" id="product-price">₹1200</h2>
 
-<h2 class="price" id="product-price">₹1200</h2>
+        <p class="description">
+            Beautiful handmade product crafted by artisans.
+        </p>
 
-<p class="description">
-Beautiful handmade product crafted by artisans.
-</p>
+        <!-- Quantity -->
+        <div class="quantity-box">
+            <button onclick="changeQty(-1)">-</button>
+            <input type="number" id="qty" value="1" min="1">
+            <button onclick="changeQty(1)">+</button>
+        </div>
 
-<div class="quantity-box">
-<button onclick="changeQty(-1)">-</button>
-<input type="number" id="qty" value="1" min="1">
-<button onclick="changeQty(1)">+</button>
-</div>
+        <!-- Buttons -->
+        <div class="buttons">
+            <button onclick="addToCart()">Add to Cart</button>
+            <button onclick="buyNow()">Buy Now</button>
+        </div>
 
-<div class="buttons">
-<button onclick="addToCart()">Add to Cart</button>
-<button onclick="buyNow()">Buy Now</button>
-</div>
-
-</div>
+    </div>
 
 </section>
 
+<!-- PRODUCT DETAILS -->
+<section class="product-info-section">
+    <h3>Product Details</h3>
+    <ul>
+        <li>Material: Cotton Yarn</li>
+        <li>Handmade Product</li>
+        <li>Color: Black & White</li>
+        <li>Weight: 300g</li>
+    </ul>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+    <h3>Customer Reviews</h3>
+
+    <div class="review">
+        ⭐ ⭐ ⭐ ⭐ ☆  
+        <p><b>Anita:</b> Very beautiful handmade purse!</p>
+    </div>
+
+    <div class="review">
+        ⭐ ⭐ ⭐ ⭐ ⭐  
+        <p><b>Riya:</b> Amazing quality and design.</p>
+    </div>
+
+</section>
+
+<!-- SIMILAR PRODUCTS -->
+<section class="similar">
+
+    <h3>Similar Products</h3>
+
+    <div class="similar-row">
+
+        <div class="similar-card">
+            <img src="images/purse1.jpeg">
+            <p>Handmade Bag</p>
+            <span>₹1499</span>
+        </div>
+
+        <div class="similar-card">
+            <img src="images/purse3.jpeg">
+            <p>Combo Purse</p>
+            <span>₹1575</span>
+        </div>
+
+        <div class="similar-card">
+            <img src="images/purse4.jpeg">
+            <p>Home Decor</p>
+            <span>₹1350</span>
+        </div>
+
+        <div class="similar-card">
+            <img src="images/purse5.jpeg">
+            <p>Blue Purse</p>
+            <span>₹1399</span>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- JS -->
 <script>
 
-// ✅ Dynamic data
+// ⭐ Dynamic data from URL
 const params = new URLSearchParams(window.location.search);
 
 const name = params.get("name");
@@ -71,7 +147,13 @@ if(image){
     document.getElementById("product-image").src = image;
 }
 
-// Quantity
+// ⭐ Rating
+function rate(stars){
+    document.getElementById("rating-result").innerText =
+    "You rated " + stars + " stars";
+}
+
+// ⭐ Quantity
 function changeQty(val){
     let qty = document.getElementById("qty");
     let current = parseInt(qty.value);
@@ -80,6 +162,7 @@ function changeQty(val){
     }
 }
 
+// ⭐ Cart
 function addToCart(){
     alert("Added to cart ✅");
 }
