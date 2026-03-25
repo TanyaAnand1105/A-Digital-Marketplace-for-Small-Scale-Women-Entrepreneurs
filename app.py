@@ -36,7 +36,7 @@ def perform_login():
     if response:
         return redirect('/profile')
     else:    
-        return "Incorrect email/password"
+        return render_template('login.html', message="Incorrect email or password") 
 
 @app.route('/profile')
 def profile():

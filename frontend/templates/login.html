@@ -24,6 +24,11 @@ if(localStorage.getItem("isLoggedIn") === "true"){
 <div class="login-form">
 
 <h2>Login</h2>
+
+{% if message %}
+    <p style="color: red; text-align: center;">{{ message }}</p>
+{% endif %}
+
 <form action="/perform_login" method="post">
     
     <input type="email" name="user_ka_email" placeholder="Email" required>
@@ -31,7 +36,6 @@ if(localStorage.getItem("isLoggedIn") === "true"){
     <input type="password" name="user_ka_password" placeholder="Password" required>
     
     <button type="submit">Login</button>
-</form>
 </form>
 
 <div class="login-links">

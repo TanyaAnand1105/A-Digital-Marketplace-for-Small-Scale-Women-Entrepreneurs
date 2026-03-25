@@ -11,9 +11,9 @@ class Database:
             else:
                 users[email] = [name,password]
 
-        with open('users.json','w') as wf:
-            json.dump(users,wf,indent=4)  
-            return 1    
+                with open('users.json','w') as wf:
+                    json.dump(users,wf,indent=4)  
+                    return 1    
 
     def search(self, email, password):
         with open('users.json','r') as rf:
