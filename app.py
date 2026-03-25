@@ -1,7 +1,7 @@
 from flask import Flask,render_template,request,redirect
 from db import Database
 
-app =  Flask(__name__)
+app =  Flask(__name__,template_folder='frontend/templates' ,static_folder='frontend/static' )
 
 dbo = Database()
 
