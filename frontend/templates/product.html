@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Product</title>
+<link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body class="product-body">
+
+<header class="product-navbar">
+    <div class="nav-left">
+        <a href="shop.html" class="back-btn">⬅</a>
+        <h2 class="logo">KalaKriti</h2>
+    </div>
+</header>
+
+<section class="product-container">
+
+<div class="product-images">
+    <img class="main-img" id="product-image">
+    <div class="thumbnail-row"></div>
+</div>
+
+<div class="product-details">
+
+<h1 id="product-name"></h1>
+
+<div class="star-rating">
+<span onclick="rate(1)">⭐</span>
+<span onclick="rate(2)">⭐</span>
+<span onclick="rate(3)">⭐</span>
+<span onclick="rate(4)">⭐</span>
+<span onclick="rate(5)">⭐</span>
+</div>
+
+<p id="rating-result"></p>
+
+<h2 id="product-price"></h2>
+
+<p class="description">
+Beautiful handmade product crafted by artisans.
+</p>
+
+<div class="quantity-box">
+<button onclick="changeQty(-1)">-</button>
+<input type="number" id="qty" value="1" min="1">
+<button onclick="changeQty(1)">+</button>
+</div>
+
+<div class="buttons">
+<button onclick="addToCart()">Add to Cart</button>
+<button onclick="buyNow()">Buy Now</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- DETAILS -->
+<section class="product-info-section">
+<h3>Product Details</h3>
+<ul></ul>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews"></section>
+
+<!-- SIMILAR -->
+<section class="similar">
+<h3>Similar Products</h3>
+<div class="similar-row"></div>
+</section>
+
+<script>
+
+// URL params
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+const price = params.get("price");
+const image = params.get("image");
+
+// basic info
+document.getElementById("product-name").innerText = name;
+document.getElementById("product-price").innerText = "₹" + price;
+document.getElementById("product-image").src = "../static/" + image;
+
+
+// 🔐 LOGIN CHECK
+function checkLogin(){
+  if(localStorage.getItem("isLoggedIn") !== "true"){
+    window.location.href = "login.html";
+    return false;
+  }
+  return true;
+}
+
+// 🛒 CART
+function addToCart(){
+  if(!checkLogin()) return;
+  alert("Added to cart 🛒");
+}
+
+// 💳 BUY
+function buyNow(){
+  if(!checkLogin()) return;
+  alert("Proceeding to buy 🚀");
+}
+
+
+// 🔥 PRODUCT DATA
+const products = {
+
+"Purse": {
+details: `
+<li>Material: Cotton Yarn</li>
+<li>Handmade Crochet Design</li>
+<li>Lightweight & Stylish</li>
+`,
+images: [
+"../static/images/crochet purse.jpeg",
+"../static/images/croc purse1.jpeg",
+"../static/images/croc purse 2.jpeg"
+],
+reviews: `
+<h3>Customer Reviews</h3>
+<div class="review">⭐⭐⭐⭐⭐ <p><b>Anita:</b> Loved it ❤️</p></div>
+<div class="review">⭐⭐⭐⭐ <p><b>Pooja:</b> Stylish 👍</p></div>
+`,
+similar: `
+<div class="similar-card"><img src="../static/images/purse1.jpeg"><p>Sling Bag</p><span>₹1499</span></div>
+<div class="similar-card"><img src="../static/images/purse2.jpeg"><p>Combo Purse</p><span>₹1575</span></div>
+<div class="similar-card"><img src="../static/images/purse3.jpeg"><p>Coin Purse</p><span>₹1500</span></div>
+<div class="similar-card"><img src="../static/images/purse4.jpeg"><p>Handbag</p><span>₹1399</span></div>
+<div class="similar-card"><img src="../static/images/purse 5.jpeg"><p>Crochet Purse</p><span>₹1799</span></div>
+`
+},
+
+"Madhubani Saree": {
+details: `
+<li>Material: Cotton Silk</li>
+<li>Madhubani Hand Painting</li>
+<li>Perfect for Festive Wear</li>
+`,
+images: [
+"../static/images/saree1.jpeg",
+"../static/images/saree2.jpeg",
+"../static/images/saree3.jpeg"
+],
+reviews: `
+<h3>Customer Reviews</h3>
+<div class="review">⭐⭐⭐⭐⭐ <p><b>Riya:</b> Beautiful 😍</p></div>
+<div class="review">⭐⭐⭐⭐ <p><b>Neha:</b> Nice design</p></div>
+`,
+similar: `
+<div class="similar-card"><img src="../static/images/saree4.jpeg"><p>Bandhani Saree</p><span>₹2200</span></div>
+<div class="similar-card"><img src="../static/images/saree5.jpeg"><p>Printed Saree</p><span>₹1800</span></div>
+<div class="similar-card"><img src="../static/images/saree6.jpeg"><p>Banarasi Saree</p><span>₹1600</span></div>
+<div class="similar-card"><img src="../static/images/saree7.jpeg"><p>Kanjeevaram Saree</p><span>₹1700</span></div>
+<div class="similar-card"><img src="../static/images/saree8.jpeg"><p>Chanderi Saree</p><span>₹2000</span></div>
+`
+},
+"Applique Bedsheet": {
+    details: `
+    <li>Material: Cotton Fabric</li>
+    <li>Applique Work</li>
+    <li>King Size Bedsheet</li>
+    `,
+    images: [
+        "../static/images/Bedsheet1.jpeg",
+        "../static/images/Bedsheet2.jpeg",
+        "../static/images/Bedsheet3.jpeg"
+    ],
+    reviews: `
+    <h3>Customer Reviews</h3>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Simran:</b> Comfortable 😍</p></div>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Rahul:</b> Good fabric</p></div>
+    `,
+    similar: `
+    <div class="similar-card"><img src="../static/images/Bedsheet4.jpeg"><p>Silk Bedsheet</p><span>₹1500</span></div>
+    <div class="similar-card"><img src="../static/images/Bedsheet5.jpeg"><p>Fitted Bedsheet</p><span>₹2100</span></div>
+    <div class="similar-card"><img src="../static/images/Bedsheet6.jpeg"><p>Cotton Bedsheet</p><span>₹1900</span></div>
+    <div class="similar-card"><img src="../static/images/Bedsheet7.jpeg"><p>Linen Bedsheet</p><span>₹1600</span></div>
+    <div class="similar-card"><img src="../static/images/Bedsheet8.jpeg"><p>Polyester Bedsheet</p><span>₹1800</span></div>
+    `
+},
+
+"Clay Vase": {
+    details: `
+    <li>Material: Ceramic</li>
+    <li>Handcrafted Flower Design</li>
+    <li>Multi-purpose (Decor + Fork Holder)</li>
+    `,
+    images: [
+        "../static/images/vase1.jpeg",
+        "../static/images/vase2.jpeg",
+        "../static/images/vase3.jpeg"
+    ],
+    reviews: `
+    <h3>Customer Reviews</h3>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ⭐ <p><b>Ritika:</b> So cute 😍 totally worth it!</p></div>
+    <div class="review">⭐ ⭐ ⭐ ⭐ ☆ <p><b>Aman:</b> Unique design, looks premium 👍</p></div>
+    `,
+    similar: `
+    <div class="similar-card"><img src="../static/images/vase4.jpeg"><p>Mini Flower Vase</p><span>₹899</span></div>
+    <div class="similar-card"><img src="../static/images/vase5.jpeg"><p>Terracotta Vase</p><span>₹1199</span></div>
+    <div class="similar-card"><img src="../static/images/vase6.jpeg"><p>Glazed Clay Vase</p><span>₹699</span></div>
+    <div class="similar-card"><img src="../static/images/vase7.jpeg"><p>Painted Clay Vase</p><span>₹999</span></div>
+    <div class="similar-card"><img src="../static/images/vase8.jpeg"><p>Earthen Vase</p><span>₹799</span></div>
+    `
+}
+
+
+};
+
+
+// APPLY DATA
+if(products[name]){
+
+document.querySelector(".product-info-section ul").innerHTML = products[name].details;
+
+document.querySelector(".reviews").innerHTML = products[name].reviews;
+
+const thumb = document.querySelector(".thumbnail-row");
+thumb.innerHTML = "";
+
+products[name].images.forEach(img => {
+thumb.innerHTML += `<img src="${img}" onclick="changeImage(this)">`;
+});
+
+document.querySelector(".similar-row").innerHTML = products[name].similar;
+
+}
+
+
+// CHANGE IMAGE
+function changeImage(el){
+document.getElementById("product-image").src = el.src;
+}
+
+
+// RATING
+function rate(stars){
+document.getElementById("rating-result").innerText =
+"You rated " + stars + " stars";
+}
+
+
+// QUANTITY
+function changeQty(val){
+let qty = document.getElementById("qty");
+let current = parseInt(qty.value);
+if(current + val >= 1){
+qty.value = current + val;
+}
+}
+
+</script>
+
+<script src="../static/js/script.js"></script>
+
+</body>
+</html>

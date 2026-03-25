@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="../static/css/style.css">
+
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  Free shipping on orders over ₹999 🚚
+</div>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <h2 class="logo">KalaKriti</h2>
+
+ 
+   <nav>
+        <a href="dashboard.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="sell.html">Sell Product</a>
+        <a href="account.html">Account</a>
+        <button onclick="logout()"
+        class="logout-btn">logout</button>
+        
+    </nav>
+<div class="icons">
+  <a href="shop.html">🔍</a>
+    
+  </div>
+</header>
+
+
+<!-- HERO -->
+<section class="dashboard-hero">
+  <div class="dashboard-hero-content">
+    <p>Best Handmade Products</p>
+    <h1>New Handmade Collection</h1>
+    <a href="shop.html">
+    <button>Shop Now</button>
+    </a>
+  </div>
+</section>
+
+
+<!-- CATEGORY -->
+<section class="category">
+
+<h2>Shop by Category</h2>
+
+<div class="category-row">
+
+<div class="cat-card">
+<img src="../static/images/Art.jpeg">
+<p>Art</p>
+</div>
+
+<div class="cat-card">
+<img src="../static/images/Craft.jpeg">
+<p>Craft</p>
+</div>
+
+<div class="cat-card">
+<img src="../static/images/Decor.jpeg">
+<p>Decor</p>
+</div>
+
+<div class="cat-card">
+<img src="../static/images/Pottery.jpeg">
+<p>Pottery</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PROMO SECTION -->
+<section class="promo">
+
+<div class="promo-left">
+  <h2>Knitted Products</h2>
+  <img src="../static/images/Crochet products.jpeg">
+
+  <button>Shop Now</button>
+</div>
+
+<div class="promo-right">
+
+  <div class="promo-box">
+    <h3>25% Discount</h3>
+  </div>
+
+  <div class="promo-box">
+    <h3>35% Discount</h3>
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+<section class="products">
+
+<h2>Featured Products</h2>
+
+<div class="product-grid">
+
+<div class="product-card">
+<img src="../static/images/vase.jpeg">
+<h3>Handmade Vase</h3>
+<p>₹600</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="../static/images/wood decor.jpeg">
+<h3>Wood Decor</h3>
+<p>₹800</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="../static/images/art piece 3.jpeg">
+<h3>Art Piece</h3>
+<p>₹450</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="../static/images/craft item3.jpeg">
+<h3>Craft Item</h3>
+<p>₹300</p>
+
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+</div>
+
+</section>
+<script src="../static/js/script.js"></script>
+</body>
+</html>

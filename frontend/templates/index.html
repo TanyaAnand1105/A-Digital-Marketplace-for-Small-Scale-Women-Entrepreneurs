@@ -3,7 +3,12 @@
 
 <head>
     <title>KalaKriti</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script>
+if(localStorage.getItem("isLoggedIn") === "true"){
+    window.location.href = "dashboard.html";
+}
+</script>
 </head>
 
 <body>
@@ -25,7 +30,7 @@
 
 <section class="hero">
 
-<div class="hero-content">
+<div class="hero-text">
 
 <h2>Support Handmade Creators</h2>
 
@@ -43,27 +48,27 @@
 
 <h2>Featured Products</h2>
 
-<div class="products">
+<div class="product-grid">
 
 <div class="product-card">
-<img src="images/bag.jpg" alt="Crochet Bag" width="200">
+<img src="../static/images/bag.jpg" alt="Crochet Bag" width="200">
 <h3>Crochet Bag</h3>
 <p>Price: ₹450</p>
-<button>View Product</button>
+<button onclick="addToCart()">View Product</button>
 </div>
 
 <div class="product-card">
-<img src="images/jewellery.jpg" alt="Handmade Jewellery" width="200">
+<img src="../static/images/jewellery.jpg" alt="Handmade Jewellery" width="200">
 <h3>Handmade Jewellery</h3>
 <p>Price: ₹300</p>
-<button>View Product</button>
+<button onclick="addToCart()">View Product</button>
 </div>
 
 <div class="product-card">
-<img src="images/sweater.jpg" alt="Knitted Sweater" width="200">
+<img src="../static/images/sweater.jpg" alt="Knitted Sweater" width="200">
 <h3>Knitted Sweater</h3>
 <p>Price: ₹900</p>
-<button>View Product</button>
+<button onclick="addToCart()">View Product</button>
 </div>
 
 </div>
@@ -102,7 +107,12 @@
 <footer>
     <p>© 2026 Inclusive Handmade Marketplace</p>
 </footer>
-
+<script>
+if(localStorage.getItem("isLoggedIn") === "true"){
+    document.querySelector('a[href="login.html"]').style.display = "none";
+    document.querySelector('a[href="signup.html"]').style.display = "none";
+}
+</script>
 </body>
-
+<script src="../static/js/script.js"></script>
 </html>
