@@ -41,13 +41,35 @@ def perform_login():
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
-@app.route('/logout')
-def logout():
-    return redirect(url_for('index'))
 
 @app.route('/add_product')
 def add_product():
-    return "<h1>Add New Product Page</h1><p>Feature coming soon!</p><a href='/profile'>Back to Dashboard</a>"
+    return render_template('add_product.html')
+
+@app.route('/perform_add_product', methods=['POST'])
+def perform_add_product():
+    import json
+    p_name = request.form.get('p_name')
+    p_price = request.form.get('p_price')
+    p_desc = request.form.get('p_desc')
+
+    new_item = {"name": p_name, "price": p_price, "description": p_desc}
+
+    try:
+        with open('products.json', 'r') as f:
+            all_products = json.load(f)
+    except:
+        all_products = []
+
+    all_products.append(new_item)
+
+    with open('products.json', 'w') as f:
+        json.dump(all_products, f, indent=4)
+
+    return f"<h1>Success!</h1><p>{p_name} add ho gaya hai.</p><a href='/marketplace'>Shop Dekhein</a>"
+@app.route('/logout')
+def logout():
+    return redirect(url_for('index'))
 
 @app.route('/my_orders')
 def my_orders():
@@ -56,7 +78,16 @@ def my_orders():
 @app.route('/messages')
 def messages():
     return "<h1>Customer Messages Page</h1><p>Feature coming soon!</p><a href='/profile'>Back to Dashboard</a>"
-
+@app.route('/marketplace')
+def marketplace():
+    import json
+    try:
+        with open('products.json', 'r') as f:
+            all_products = json.load(f)
+    except:
+        all_products = [] 
+    
+    return render_template('marketplace.html', products=all_products)
 if  __name__ == "__main__": 
     app.run(debug=True)
        

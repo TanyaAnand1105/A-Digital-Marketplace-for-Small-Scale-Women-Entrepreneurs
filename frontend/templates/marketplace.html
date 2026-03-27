@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kala Kriti Marketplace</title>
+</head>
+<body style="background-color: #fff5f8; font-family: 'Segoe UI', sans-serif; padding: 20px;">
+    <h1 style="text-align: center; color: #d81b60;">🛍️ Kala Kriti Marketplace</h1>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px;">
+        {% for p in products %}
+        <div style="background: white; padding: 20px; border-radius: 15px; width: 250px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #f8bbd0;">
+            <h3 style="color: #d81b60;">{{ p.name }}</h3>
+            <p style="color: #666; font-size: 14px;">{{ p.description }}</p>
+            <p style="font-size: 18px; font-weight: bold; color: #333;">₹{{ p.price }}</p>
+            <button style="background: #d81b60; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold;">Add to Cart 🛒</button>
+        </div>
+        {% else %}
+        <p style="color: #888;">Abhi koi products nahi hain. Dashboard se add kijiye!</p>
+        {% endfor %}
+    </div>
+    <p style="text-align: center; margin-top: 40px;"><a href="/profile" style="color: #007bff; text-decoration: none;">← Back to Dashboard</a></p>
+</body>
+</html>

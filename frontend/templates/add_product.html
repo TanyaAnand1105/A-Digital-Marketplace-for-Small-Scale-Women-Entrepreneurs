@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product - Kala Kriti</title>
+</head>
+<body style="background-color: #fce4ec; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="max-width: 400px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h2 style="color: #d81b60; text-align: center;">🛍️ Add New Product</h2>
+        <p style="text-align: center; color: #555;">Kala Kriti: Women Entrepreneurs Marketplace</p>
+        
+        <form action="/perform_add_product" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+            <input type="text" name="p_name" placeholder="Product Name" required style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+            <textarea name="p_desc" placeholder="Tell us about your product..." rows="3" style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+            <input type="number" name="p_price" placeholder="Price (INR)" required style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+            
+            <button type="submit" style="background: #d81b60; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">Add to Marketplace</button>
+        </form>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="/profile" style="color: #007bff; text-decoration: none;">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

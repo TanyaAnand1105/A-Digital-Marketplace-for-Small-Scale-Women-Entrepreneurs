@@ -8,11 +8,13 @@
     <h1>Welcome to Kala Kriti Dashboard</h1>
     <p>What would you like to do today?</p>
     <ul>
-    <li><a href="{{ url_for('add_product') }}">Add New Product</a></li>
-    <li><a href="{{ url_for('my_orders') }}">View My Orders</a></li>
-    <li><a href="{{ url_for('messages') }}">Customer Messages</a></li>
-    <li><a href="{{ url_for('logout') }}">Logout</a></li>
-    </ul>
+            <li><a href="{{ url_for('add_product') }}">🛍️ Add New Product</a></li>
+            <li><a href="{{ url_for('marketplace') }}">🏪 View Marketplace (Shop)</a></li>
+            <li><a href="{{ url_for('my_orders') }}">📦 View My Orders</a></li>
+            <li><a href="{{ url_for('messages') }}">💬 Customer Messages</a></li>
+            <hr style="border: 0.5px solid #ddd; margin: 15px 0; width: 50%;">
+            <li><a href="{{ url_for('logout') }}" style="color: red;">🚪 Logout</a></li>
+        </ul>
     
 
 </body>
