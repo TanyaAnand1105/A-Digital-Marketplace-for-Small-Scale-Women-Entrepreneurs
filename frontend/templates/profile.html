@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <time>profile</time>  
+    <title>profile</title>  
 </head>
 <body>
     <h1>Welcome to Kala Kriti Dashboard</h1>
     <p>What would you like to do today?</p>
     <ul>
-        <li><a href="/add-product">Add New Product</a></li>
-        <li><a href="/my-orders">View My Orders</a></li>
-        <li><a href="/messages">Customer Messages</a></li>
-        <li><a href="/logout">Logout</a></li>
+    <li><a href="{{ url_for('add_product') }}">Add New Product</a></li>
+    <li><a href="{{ url_for('my_orders') }}">View My Orders</a></li>
+    <li><a href="{{ url_for('messages') }}">Customer Messages</a></li>
+    <li><a href="{{ url_for('logout') }}">Logout</a></li>
     </ul>
+    
 
 </body>
-</html>    
+</html>
