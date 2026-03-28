@@ -1,68 +1,40 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Create Account</title>
-<link rel="stylesheet" href="../static/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Kala Kriti</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
-<body class="login-body">
-
-<div class="login-container">
-
-<div class="login-image">
-<img src="../static/images/login-art.png">
-</div>
-
-<div class="login-form">
-
-<h2>Create Account</h2>
-
-<form onsubmit="handleSignup(event)">
-
-<input type="text" placeholder="Full Name" required>
-
-<input type="email" placeholder="Email" required>
-
-<input type="password" id="password" placeholder="Password" required>
-
-<input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-
-<button type="submit">Create Account</button>
-
-<div class="login-links">
-
-<a href="login.html">Already have an account?</a>
-
-</div>
-
+<body>
+    <div class="signup-container">
+        <h2>Create an Account</h2>
+        <form action="/perform_signup" method="POST" onsubmit="handleSignup(event)">
+    <input type="text" id="signup-name" name="username" placeholder="Full Name" required>
+    <input type="email" id="signup-email" name="email" placeholder="Email Address" required>
+    <input type="password" id="signup-password" name="password" placeholder="Password" required>
+    <input type="password" id="signup-confirm" placeholder="Confirm Password" required>
+    <button type="submit">Sign Up</button>
 </form>
+        <p>Already have an account? <a href="/login">Login here</a></p>
+    </div>
+    <script>
+function handleSignup(event) {
+    event.preventDefault(); 
 
-</div>
+    const name = document.getElementById("signup-name").value;
+    const email = document.getElementById("signup-email").value;
+    const pass = document.getElementById("signup-password").value;
+    const confirm = document.getElementById("signup-confirm").value;
 
-</div>
-<!-- SIGNUP LOGIC -->
-<script>
-function handleSignup(event){
-  event.preventDefault();
+    if (pass !== confirm) {
+        alert("Oops! Passwords do not match. Please check again.");
+        return; 
+    }
 
-  let pass = document.getElementById("password").value;
-  let confirm = document.getElementById("confirmPassword").value;
-
-  if(pass !== confirm){
-    alert("Passwords do not match!");
-    return;
-  }
-
-  // signup success → login automatically
-  localStorage.setItem("isLoggedIn", "true");
-
-  window.location.href = "dashboard.html";
+    console.log("Success! Registering user:", email);
+    event.target.submit(); 
 }
 </script>
-
-<script src="../static/js/script.js"></script>
-
 </body>
-
 </html>
