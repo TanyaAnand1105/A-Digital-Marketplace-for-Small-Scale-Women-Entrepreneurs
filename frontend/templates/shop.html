@@ -1,140 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop – KalaKriti</title>
+  <meta name="description" content="Browse all handmade products on KalaKriti – filter by category, price and more.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<body>
+<div id="navbar"></div>
 
-<body class="shop-page">
+<!-- Page Header -->
+<div class="page-hdr">
+  <nav aria-label="breadcrumb" class="page-hdr-cont">
+    <ol class="breadcrumb justify-content-center breadcrumb-dark" style="background:transparent">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active">Shop</li>
+    </ol>
+  </nav>
+  <div class="page-hdr-cont">
+    <h1>Explore Our <span style="color:var(--pink-mid)">Collection</span></h1>
+    <p>Handcrafted with love by women artisans across India</p>
+  </div>
+</div>
 
-<header class="shop-navbar">
+<!-- Search Bar -->
+<div style="background:var(--pink-light);padding:20px 0;border-bottom:2px solid #f8bbd0">
+  <div class="container">
+    <div style="display:flex;gap:10px;max-width:600px;margin:0 auto">
+      <input type="text" id="searchInput" placeholder="Search products, categories, artisans..." class="form-control" style="border-radius:25px;padding:12px 22px;border:2px solid var(--pink-mid)">
+      <button onclick="applyFilters()" class="btn-pink" style="border-radius:25px;padding:10px 22px;white-space:nowrap">🔍 Search</button>
+    </div>
+  </div>
+</div>
 
-    <a href="index.html" class="back-btn">⬅</a>
-    <h1 class="logo">Handmade Market</h1>
+<div class="container py-5">
+  <div class="row g-4">
 
-    <div class="search-box">
-        <input type="text" placeholder="Search handmade products...">
-        <button>🔍</button>
+    <!-- Sidebar -->
+    <div class="col-lg-3">
+      <div class="shop-sidebar">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <div style="font-size:1rem;font-weight:800;color:var(--black)">🎛 Filters</div>
+          <button onclick="clearFilters()" style="background:var(--pink-light);color:var(--pink);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;font-weight:600;cursor:pointer">Clear All</button>
+        </div>
+
+        <!-- Category -->
+        <div class="filter-grp">
+          <div class="filter-ttl">Category</div>
+          <div id="catFilters"></div>
+        </div>
+
+        <!-- Price -->
+        <div class="filter-grp">
+          <div class="filter-ttl">Price Range</div>
+          <div style="display:flex;justify-content:space-between;font-size:.8rem;color:var(--gray);margin-bottom:8px">
+            <span>₹0</span><span id="priceVal" style="color:var(--pink);font-weight:700">₹8,000</span>
+          </div>
+          <input type="range" class="price-range" id="priceRange" min="0" max="8000" value="8000" step="100" oninput="document.getElementById('priceVal').textContent='₹'+Number(this.value).toLocaleString('en-IN');applyFilters()">
+        </div>
+
+        <!-- Rating -->
+        <div class="filter-grp">
+          <div class="filter-ttl">Min Rating</div>
+          <div id="ratingFilters">
+            <label class="filter-check"><input type="radio" name="rating" value="0" checked onchange="applyFilters()"> All Ratings</label>
+            <label class="filter-check"><input type="radio" name="rating" value="4" onchange="applyFilters()"> ★ 4+ Stars</label>
+            <label class="filter-check"><input type="radio" name="rating" value="4.5" onchange="applyFilters()"> ★ 4.5+ Stars</label>
+          </div>
+        </div>
+
+        <!-- Sort -->
+        <div class="filter-grp">
+          <div class="filter-ttl">Sort By</div>
+          <select id="sortSelect" class="form-control" style="font-size:.85rem;border-radius:8px;border:2px solid var(--border)" onchange="applyFilters()">
+            <option value="default">Default</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+            <option value="newest">Newest First</option>
+          </select>
+        </div>
+      </div>
     </div>
 
-    <div class="nav-icons">
+    <!-- Product Grid -->
+    <div class="col-lg-9">
+      <!-- Results count + active filters -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+        <div id="resultCount" style="font-size:.875rem;color:var(--gray);font-weight:600"></div>
+        <div id="activeCatLabel" style="display:none;background:var(--pink-light);color:var(--pink);padding:5px 14px;border-radius:20px;font-size:.8rem;font-weight:600">
+          All Categories <button onclick="clearCatFilter()" style="background:none;border:none;color:var(--pink);cursor:pointer;margin-left:4px">✕</button>
+        </div>
+      </div>
 
-        <a href="login.html" class="icon-box">
-            <span class="icon">😊</span>
-            <span>Account</span>
-        </a>
+      <!-- Category tabs -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px" id="catTabs"></div>
 
-        <a href="wishlist.html" class="icon-box">
-            <span class="icon">❤</span>
-            <span>Wishlist</span>
-        </a>
+      <!-- Grid -->
+      <div class="row g-4" id="productsGrid">
+        <div class="col-12 text-center py-5">
+          <div style="font-size:2rem;margin-bottom:10px">⏳</div>
+          <p style="color:var(--gray)">Loading products...</p>
+        </div>
+      </div>
 
-        <a href="cart.html" class="icon-box">
-            <span class="icon">🛒</span>
-            <span>Cart</span>
-        </a>
-
+      <!-- Empty State -->
+      <div id="emptyState" class="empty-state" style="display:none">
+        <div class="empty-icon">🔍</div>
+        <h4>No products found</h4>
+        <p>Try adjusting your filters or search query</p>
+        <button onclick="clearFilters()" class="btn-pink mt-3">Clear Filters</button>
+      </div>
     </div>
+  </div>
+</div>
 
-</header>
-
-<!-- CATEGORY SECTION -->
-<section class="categories">
-
-    <div class="category">
-        <img src="../static/images/Bags.jpeg"><p>Bags</p>
+<!-- Footer -->
+<footer class="kk-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand"><span style="color:var(--pink)">Kala</span>Kriti</div>
+        <p class="footer-desc">Empowering women artisans across India.</p>
+      </div>
+      <div class="col-lg-2 col-6">
+        <div class="footer-ttl">Navigate</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </div>
     </div>
+    <div class="footer-bottom text-center">© 2026 KalaKriti. All rights reserved.</div>
+  </div>
+</footer>
 
-    <div class="category">
-        <img src="../static/images/Jewellery.jpeg"><p>Jewellery</p>
-    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../static/js/data.js"></script>
+<script src="../static/js/navbar.js"></script>
+<script>
+  renderNavbar('shop');
+  let allProducts = [], categories = [], activeCat = '';
 
-    <div class="category">
-        <img src="../static/images/Clothes.jpeg"><p>Clothes</p>
-    </div>
+  // Read URL param for category
+  const urlCat = new URLSearchParams(window.location.search).get('cat') || '';
+  if (urlCat) activeCat = urlCat;
 
-    <div class="category">
-        <img src="../static/images/Candles.jpeg"><p>Candles</p>
-    </div>
+  async function init() {
+    [allProducts, categories] = await Promise.all([getAllProducts(), loadCategories()]);
 
-    <div class="category">
-        <img src="../static/images/Crochet.jpeg"><p>Flowers</p>
-    </div>
+    // Category filters (sidebar checkboxes)
+    document.getElementById('catFilters').innerHTML = `
+      <label class="filter-check"><input type="radio" name="cat" value="" ${!activeCat?'checked':''} onchange="activeCat=this.value;applyFilters()"> All Categories</label>
+      ${categories.map(c => `<label class="filter-check"><input type="radio" name="cat" value="${c.id}" ${activeCat===c.id?'checked':''} onchange="activeCat=this.value;applyFilters()"> ${c.name}</label>`).join('')}`;
 
-</section>
+    // Category tabs
+    document.getElementById('catTabs').innerHTML = `
+      <button onclick="setCat('')" class="btn-pink-sm btn-outline-pink" id="tab-all" style="border-radius:20px;font-size:.78rem;padding:5px 16px">All</button>
+      ${categories.map(c => `<button onclick="setCat('${c.id}')" class="btn-outline-pink" id="tab-${c.id}" style="border-radius:20px;font-size:.78rem;padding:5px 16px">${c.name}</button>`).join('')}`;
 
-<!-- DEALS -->
-<h2 class="section-title">Deals of the Day</h2>
+    applyFilters();
+    updateTabActive();
+  }
 
-<section class="products">
+  function setCat(cat) {
+    activeCat = cat;
+    document.querySelectorAll('#catFilters input[type=radio]').forEach(r => r.checked = r.value === cat);
+    applyFilters(); updateTabActive();
+  }
 
-    <!-- PURSE -->
-    <div class="product-card">
-        <a href="product.html?name=Purse&price=1200&type=purse&image=images/crochet purse.jpeg">
-            <img src="../static/images/crochet purse.jpeg">
-        </a>
-        <h3>Purse</h3>
-        <p>₹1200</p>
-        <button onclick="addToCart()" >Add to Cart</button>
-    </div>
+  function updateTabActive() {
+    document.querySelectorAll('#catTabs button').forEach(b => {
+      b.style.background = ''; b.style.color = '';
+    });
+    const active = document.getElementById(activeCat ? 'tab-' + activeCat : 'tab-all');
+    if (active) { active.style.background = 'var(--pink)'; active.style.color = '#fff'; active.style.borderColor = 'var(--pink)'; }
+  }
 
-    <!-- SAREE -->
-    <div class="product-card">
-        <a href="product.html?name=Madhubani Saree&price=2000&type=saree&image=images/Madhubani Sarees.jpeg">
-            <img src="../static/images/Madhubani Sarees.jpeg">
-        </a>
-        <h3>Madhubani Saree</h3>
-        <p>₹2000</p>
-        <button onclick="addToCart()" >Add to Cart</button>
-    </div>
+  function applyFilters() {
+    const search = document.getElementById('searchInput').value.toLowerCase().trim();
+    const maxPrice = parseInt(document.getElementById('priceRange').value);
+    const minRating = parseFloat(document.querySelector('input[name="rating"]:checked').value);
+    const sort = document.getElementById('sortSelect').value;
 
-    <!-- BEDSHEET -->
-    <div class="product-card">
-        <a href="product.html?name=Applique Bedsheet&price=1800&type=purse&image=images/Bedsheet.jpeg">
-            <img src="../static/images/Bedsheet.jpeg">
-        </a>
-        <h3>Applique Bedsheet</h3>
-        <p>₹1800</p>
-        <button onclick="addToCart()" >Add to Cart</button>
-    </div>
+    let filtered = allProducts.filter(p => {
+      const matchCat = !activeCat || p.category === activeCat;
+      const matchSearch = !search || p.name.toLowerCase().includes(search) || p.category.toLowerCase().includes(search) || (p.seller||'').toLowerCase().includes(search);
+      const matchPrice = p.price <= maxPrice;
+      const matchRating = p.rating >= minRating;
+      return matchCat && matchSearch && matchPrice && matchRating;
+    });
 
-    <!-- VASE -->
-    <div class="product-card">
-        <a href="product.html?name=Clay Vase&price=749&type=purse&image=images/Clay vase.jpeg">
-            <img src="../static/images/Clay vase.jpeg">
-        </a>
-        <h3>Clay Vase</h3>
-        <p>₹749</p>
-        <button onclick="addToCart()" >Add to Cart</button>
-    </div>
+    // Sort
+    if (sort === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+    else if (sort === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+    else if (sort === 'rating') filtered.sort((a,b) => b.rating - a.rating);
+    else if (sort === 'newest') filtered.reverse();
 
-</section>
+    renderProducts(filtered);
+    updateTabActive();
+  }
 
-<!-- PROMO -->
-<section class="promo">
+  function renderProducts(products) {
+    const grid = document.getElementById('productsGrid');
+    const empty = document.getElementById('emptyState');
+    document.getElementById('resultCount').textContent = `${products.length} product${products.length!==1?'s':''} found`;
 
-    <a href="shop.html" class="promo-card">
-        <img src="../static/images/Crochet Toys.jpeg">
-        <h3>Crochet Toys</h3>
-        <p>Up to 60% Off</p>
-    </a>
+    if (!products.length) {
+      grid.innerHTML = ''; empty.style.display = 'block'; return;
+    }
+    empty.style.display = 'none';
+    grid.innerHTML = products.map(p => `<div class="col-6 col-md-4">${productCardHTML(p)}</div>`).join('');
+  }
 
-    <a href="shop.html" class="promo-card">
-        <img src="../static/images/Handmade Baskets.jpeg">
-        <h3>Handmade Baskets</h3>
-        <p>Up to 70% Off</p>
-    </a>
+  function clearFilters() {
+    activeCat = '';
+    document.getElementById('searchInput').value = '';
+    document.getElementById('priceRange').value = 8000;
+    document.getElementById('priceVal').textContent = '₹8,000';
+    document.querySelector('input[name="rating"]').checked = true;
+    document.getElementById('sortSelect').value = 'default';
+    document.querySelectorAll('#catFilters input[type=radio]')[0].checked = true;
+    applyFilters(); updateTabActive();
+  }
 
-    <a href="shop.html" class="promo-card">
-        <img src="../static/images/Home Decor.jpeg">
-        <h3>Home Decor</h3>
-        <p>Up to 45% Off</p>
-    </a>
+  function clearCatFilter() { setCat(''); }
 
-</section>
-
+  document.addEventListener('keydown', e => { if (e.key === 'Enter') applyFilters(); });
+  init();
+</script>
 </body>
 </html>
