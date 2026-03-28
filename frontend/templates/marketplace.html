@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Kala Kriti Marketplace</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace - Kala Kriti</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body style="background-color: #fff5f8; font-family: 'Segoe UI', sans-serif; padding: 20px;">
-    <h1 style="text-align: center; color: #d81b60;">🛍️ Kala Kriti Marketplace</h1>
+    <h1 style="text-align: center; color: #d81b60; margin-bottom: 30px;">🛍️ Kala Kriti Marketplace</h1>
+    
+    {% if message %}
+    <div style="background: #4CAF50; color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
+        {{ message }}
+    </div>
+    {% endif %}
+    
     <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px;">
         {% for p in products %}
         <div style="background: white; padding: 20px; border-radius: 15px; width: 250px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #f8bbd0;">
-            <h3 style="color: #d81b60;">{{ p.name }}</h3>
-            <p style="color: #666; font-size: 14px;">{{ p.description }}</p>
-            <p style="font-size: 18px; font-weight: bold; color: #333;">₹{{ p.price }}</p>
-            <form action="/add_to_cart" method="POST">
-    <input type="hidden" name="product_name" value="{{ p.name }}">
-    <button type="submit" style="background: #d81b60; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold;">
-        Add to Cart 🛒
-    </button>
-</form>
+            <h3 style="color: #d81b60; margin-top: 0;">{{ p.name }}</h3>
+            <p style="color: #666; font-size: 14px; height: 60px; overflow: hidden;">{{ p.description }}</p>
+            <p style="font-size: 18px; font-weight: bold; color: #333; margin: 15px 0;">₹{{ p.price }}</p>
+            <form action="{{ url_for('add_to_cart') }}" method="POST" style="margin: 0;">
+                <input type="hidden" name="product_name" value="{{ p.name }}">
+                <button type="submit" style="background: #d81b60; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s;">
+                    Add to Cart 🛒
+                </button>
+            </form>
         </div>
         {% else %}
-        <p style="color: #888;">Abhi koi products nahi hain. Dashboard se add kijiye!</p>
+        <p style="color: #888; font-size: 16px; text-align: center; padding: 40px;">No products available. Start by adding a product!</p>
         {% endfor %}
     </div>
-    <p style="text-align: center; margin-top: 40px;"><a href="/profile" style="color: #007bff; text-decoration: none;">← Back to Dashboard</a></p>
+    
+    <p style="text-align: center; margin-top: 40px;"><a href="{{ url_for('index') }}" style="color: #007bff; text-decoration: none; font-size: 16px;">← Back to Dashboard</a></p>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
