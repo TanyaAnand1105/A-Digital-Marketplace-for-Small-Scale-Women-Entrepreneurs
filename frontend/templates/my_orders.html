@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Kala Kriti</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div style="max-width: 900px; margin: 40px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h2 style="color: #d81b60; text-align: center;">📦 My Orders</h2>
+        
+        <div style="text-align: center; padding: 40px;">
+            <p style="color: #888; font-size: 18px;">No orders yet. Start shopping now!</p>
+            <a href="{{ url_for('marketplace') }}" style="display: inline-block; background: #d81b60; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 20px;">
+                Go to Marketplace
+            </a>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="{{ url_for('index') }}" style="color: #007bff; text-decoration: none;">← Back to Dashboard</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,101 +1,86 @@
-from flask import Flask,render_template,request,redirect,url_for
-from db import Database
+from flask import Flask, send_from_directory
+import os
 
-app =  Flask(__name__,template_folder='frontend/templates' ,static_folder='frontend/static' )
+# ── App Setup ─────────────────────────────────────────────────────────────
+# static_folder='frontend/static' means Flask automatically serves
+# /static/... from frontend/static/ — so ../static/images/x.jpg works.
+app = Flask(__name__, static_folder='frontend/static')
+app.secret_key = 'kala_kriti_secret_2024'
 
-dbo = Database()
+BASE = os.path.dirname(os.path.abspath(__file__))
+TEMPLATES_DIR = os.path.join(BASE, 'frontend', 'templates')
+DATA_DIR      = os.path.join(BASE, 'frontend', 'data')
 
+# ── Root → Signup (entry point) ────────────────────────────────────────────
 @app.route('/')
 def index():
-    return render_template('login.html')
+    return send_from_directory(TEMPLATES_DIR, 'signup.html')
+
+# ── Seller Dashboard (explicit route for seller_dashboard.html links) ─────
+@app.route('/seller_dashboard.html')
+def seller_dashboard_html():
+    return send_from_directory(TEMPLATES_DIR, 'seller_dashboard.html')
+
+# ── Serve any HTML page by filename  e.g. /login.html  /shop.html ─────────
+@app.route('/<page>.html')
+def serve_page(page):
+    filename = page + '.html'
+    try:
+        return send_from_directory(TEMPLATES_DIR, filename)
+    except Exception:
+        return send_from_directory(TEMPLATES_DIR, 'index.html'), 404
+
+# ── Serve JSON data files (/data/products.json, /data/categories.json) ────
+# Our JS does fetch('../data/x.json') from /shop.html → resolves to /data/x.json
+@app.route('/data/<filename>')
+def serve_data(filename):
+    return send_from_directory(DATA_DIR, filename)
+
+# ── Legacy clean-URL routes (backward compat + convenience) ───────────────
+@app.route('/login')
+def login():
+    return send_from_directory(TEMPLATES_DIR, 'login.html')
 
 @app.route('/signup')
 def signup():
-    return render_template('signup.html')
+    return send_from_directory(TEMPLATES_DIR, 'signup.html')
 
-@app.route('/perform_signup',methods=['POST'])
-def perform_signup():
-    name = request.form.get('username')
-    email = request.form.get('email')
-    password = request.form.get('password')
-   
-    response = dbo.insert(name, email, password)
-   
-    if response: 
-        return render_template('login.html',message="Registration Successful. kindly login to proceed")
-    else:
-        return render_template('signup.html',message="Email already exists")       
+@app.route('/home')
+def home():
+    return send_from_directory(TEMPLATES_DIR, 'index.html')
 
-@app.route('/perform_login',methods=['POST'])
-def perform_login():
-    email = request.form.get('email')
-    password = request.form.get('password')
-    
-    response = dbo.search(email, password)
+@app.route('/shop')
+def shop():
+    return send_from_directory(TEMPLATES_DIR, 'shop.html')
 
-    if response:
-        return redirect(url_for('profile'))
-    else:    
-        return render_template('login.html', message="Incorrect email or password") 
+@app.route('/product')
+def product():
+    return send_from_directory(TEMPLATES_DIR, 'product.html')
 
-@app.route('/profile')
-def profile():
-    return render_template('profile.html')
+@app.route('/cart')
+def cart():
+    return send_from_directory(TEMPLATES_DIR, 'cart.html')
+
+@app.route('/wishlist')
+def wishlist():
+    return send_from_directory(TEMPLATES_DIR, 'wishlist.html')
 
 @app.route('/add_product')
 def add_product():
-    return render_template('add_product.html')
+    return send_from_directory(TEMPLATES_DIR, 'add_product.html')
 
-@app.route('/perform_add_product', methods=['POST'])
-def perform_add_product():
-    import json
-    p_name = request.form.get('p_name')
-    p_price = request.form.get('p_price')
-    p_desc = request.form.get('p_desc')
+@app.route('/profile')
+def profile():
+    return send_from_directory(TEMPLATES_DIR, 'profile.html')
 
-    new_item = {"name": p_name, "price": p_price, "description": p_desc}
+@app.route('/seller_dashboard')
+def seller_dashboard():
+    return send_from_directory(TEMPLATES_DIR, 'seller_dashboard.html')
 
-    try:
-        with open('products.json', 'r') as f:
-            all_products = json.load(f)
-    except:
-        all_products = []
+@app.route('/seller-dashboard')
+def seller_dashboard_alt():
+    return send_from_directory(TEMPLATES_DIR, 'seller_dashboard.html')
 
-    all_products.append(new_item)
-
-    with open('products.json', 'w') as f:
-        json.dump(all_products, f, indent=4)
-
-    return f"<h1>Success!</h1><p>{p_name} add ho gaya hai.</p><a href='/marketplace'>Shop Dekhein</a>"
-@app.route('/logout')
-def logout():
-    return redirect(url_for('index'))
-
-@app.route('/my_orders')
-def my_orders():
-    return "<h1>My Orders Page</h1><p>Feature coming soon!</p><a href='/profile'>Back to Dashboard</a>"
-
-@app.route('/messages')
-def messages():
-    return "<h1>Customer Messages Page</h1><p>Feature coming soon!</p><a href='/profile'>Back to Dashboard</a>"
-@app.route('/marketplace')
-def marketplace():
-    import json
-    try:
-        with open('products.json', 'r') as f:
-            all_products = json.load(f)
-    except:
-        all_products = [] 
-    
-    return render_template('marketplace.html', products=all_products)
-
-@app.route('/add_to_cart', methods=['POST'])
-def add_to_cart():
-    product_name = request.form.get('product_name')
-
-    print(f"Item Added: {product_name}")
-    
-    return render_template('marketplace.html', message=f"{product_name} added to cart!")    
-if  __name__ == "__main__": 
+# ── Run ────────────────────────────────────────────────────────────────────
+if __name__ == '__main__':
     app.run(debug=True)
-       
