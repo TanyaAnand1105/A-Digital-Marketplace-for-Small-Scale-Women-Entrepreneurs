@@ -88,6 +88,14 @@ def marketplace():
         all_products = [] 
     
     return render_template('marketplace.html', products=all_products)
+
+@app.route('/add_to_cart', methods=['POST'])
+def add_to_cart():
+    product_name = request.form.get('product_name')
+
+    print(f"Item Added: {product_name}")
+    
+    return render_template('marketplace.html', message=f"{product_name} added to cart!")    
 if  __name__ == "__main__": 
     app.run(debug=True)
        
