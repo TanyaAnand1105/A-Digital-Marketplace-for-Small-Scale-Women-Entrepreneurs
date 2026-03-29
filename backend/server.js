@@ -9,6 +9,7 @@ app.use(express.json());
 
 const SECRET = "mysecretkey";
 
+
 // ---------- HELPER FUNCTIONS ----------
 function readUsers() {
   try {
