@@ -1,13 +1,3 @@
-/*
- *  Central API configuration file.
- *  Every other JS file imports the BASE_URL and helper
- *  functions from here so the backend URL is set in one place.
- *
- *  HOW TO USE:
- *    - In development run:  node server.js   (port 3000)
- *    - Every fetch call uses apiPost() or apiGet() from this file
- */
-
 // -------------------------------------------------------
 // Change this ONE line to point to your backend server.
 // During local development: http://localhost:3000
