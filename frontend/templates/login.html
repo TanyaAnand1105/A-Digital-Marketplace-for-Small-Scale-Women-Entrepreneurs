@@ -84,38 +84,55 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../static/js/data.js"></script>
 <script>
   // Already logged in – send to correct page based on role
-  const _existing = getCurrentUser();
-  if (_existing) window.location.href = _existing.role === 'seller' ? 'seller_dashboard.html' : 'index.html';
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
 
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
 
-    let valid = true;
-    const show = (id, s) => { document.getElementById(id).style.display = s ? 'block' : 'none'; };
-    show('emailErr', !email); if (!email) valid = false;
-    show('passErr', !password); if (!password) valid = false;
-    if (!valid) return;
+  const show = (id, s) => {
+    document.getElementById(id).style.display = s ? 'block' : 'none';
+  };
 
-    const btn = document.getElementById('loginBtn');
-    btn.textContent = 'Logging in...';
-    btn.disabled = true;
+  show('emailErr', !email);
+  show('passErr', !password);
 
-    const result = loginUser(email, password);
-    if (result.success) {
-      const redirect = result.user.role === 'seller' ? 'seller_dashboard.html' : 'index.html';
-      window.location.href = redirect;
+  if (!email || !password) return;
+
+  const btn = document.getElementById('loginBtn');
+  btn.textContent = 'Logging in...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+      localStorage.setItem("token", data.token);
+      alert("Login successful ✅");
+      window.location.href = "index.html";
     } else {
-      btn.textContent = 'Login 🚀';
-      btn.disabled = false;
-      const alertBox = document.getElementById('alert-box');
-      alertBox.style.display = 'block';
-      alertBox.innerHTML = `<div class="alert alert-danger py-2" style="font-size:.85rem">⚠️ ${result.msg}</div>`;
+      throw new Error(data.error || "Login failed");
     }
+
+  } catch (err) {
+    const alertBox = document.getElementById('alert-box');
+    alertBox.style.display = 'block';
+    alertBox.innerHTML =
+      `<div class="alert alert-danger py-2">⚠️ ${err.message}</div>`;
+
+    btn.textContent = 'Login 🚀';
+    btn.disabled = false;
+  }
   });
 </script>
 </body>
