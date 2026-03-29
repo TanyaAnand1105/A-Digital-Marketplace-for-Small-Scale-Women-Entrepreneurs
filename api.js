@@ -1,4 +1,4 @@
-// -------------------------------------------------------
+// -----------------------------------------------
 // Change this ONE line to point to your backend server.
 // During local development: http://localhost:3000
 // After deployment: https://your-deployed-backend.com
