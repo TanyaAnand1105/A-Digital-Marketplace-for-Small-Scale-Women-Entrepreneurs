@@ -1,16 +1,3 @@
-/*
- *  Frontend API connector for all authentication pages.
- *  This file handles:
- *    - Signup form   → POST /api/auth/signup
- *    - Login form    → POST /api/auth/login
- *    - Logout button → POST /api/auth/logout  (then clears token)
- *    - Profile page  → GET  /api/auth/me
- *    - Edit profile  → PUT  /api/auth/me
- *    - Change password → PUT /api/auth/change-password
- *
- *  Requires: api.js must be loaded before this file in the HTML.
- */
-
 // ================================================================
 //  SIGNUP PAGE  (signup.html)
 //  Reads: username, email, password, role from the form
