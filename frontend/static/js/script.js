@@ -1,7 +1,9 @@
 /* ================= LOGIN CHECK ================= */
 
 function checkLogin(){
-  if(localStorage.getItem("isLoggedIn") !== "true"){
+  const token = localStorage.getItem("token");
+
+  if(!token){
     window.location.href = "login.html";
     return false;
   }
@@ -134,7 +136,6 @@ function addToCart(){
 
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // duplicate check
   let existing = cart.find(p => p.name === name);
 
   if(existing){
@@ -166,7 +167,7 @@ function buyNow(){
 /* ================= LOGOUT ================= */
 
 function logout(){
-  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("token");
   window.location.href = "index.html";
 }
 
@@ -189,7 +190,9 @@ updateCartCount();
 /* ================= REDIRECT CHECK ================= */
 
 function checkLoginRedirect(event){
-  if(localStorage.getItem("isLoggedIn") !== "true"){
+  const token = localStorage.getItem("token");
+
+  if(!token){
     event.preventDefault();
     window.location.href = "login.html";
   }
