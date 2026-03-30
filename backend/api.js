@@ -1,109 +1,72 @@
-// ---------------------------------------------
-// Change this ONE line to point to your backend server.
-// During local development: http://localhost:3000
-// After deployment: https://your-deployed-backend.com
-// -------------------------------------------------------
-const BASE_URL = 'http://localhost:3000';
+const API_BASE = "http://localhost:5000";
 
-// -------------------------------------------------------
-// Token helpers — JWT is stored in localStorage
-// -------------------------------------------------------
-
-function saveToken(token) {
-    localStorage.setItem('kk_token', token);
+// -------- STORAGE HELPERS --------
+function storeToken(token) {
+    localStorage.setItem("auth_token", token);
 }
 
-function getToken() {
-    return localStorage.getItem('kk_token');
+function retrieveToken() {
+    return localStorage.getItem("auth_token");
 }
 
-function clearToken() {
-    localStorage.removeItem('kk_token');
-    localStorage.removeItem('kk_user');
+function removeSession() {
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("current_user");
 }
 
-function saveUser(userObj) {
-    localStorage.setItem('kk_user', JSON.stringify(userObj));
+function storeUser(user) {
+    localStorage.setItem("current_user", JSON.stringify(user));
 }
 
-function getUser() {
+function retrieveUser() {
     try {
-        return JSON.parse(localStorage.getItem('kk_user'));
+        return JSON.parse(localStorage.getItem("current_user"));
     } catch {
         return null;
     }
 }
 
-function isLoggedIn() {
-    return !!getToken();
+function checkLoginStatus() {
+    return !!retrieveToken();
 }
 
-// -------------------------------------------------------
-// apiPost(path, body)
-// Sends a POST request with JSON body.
-// Returns parsed JSON response.
-// -------------------------------------------------------
-async function apiPost(path, body) {
-    const token = getToken();
+// -------- GENERIC REQUEST HANDLER --------
+async function sendRequest(path, method = "GET", body = null) {
+    const token = retrieveToken();
 
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+    const headers = {
+        "Content-Type": "application/json"
+    };
 
-    const resp = await fetch(`${BASE_URL}${path}`, {
-        method:  'POST',
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${API_BASE}${path}`, {
+        method,
         headers,
-        body:    JSON.stringify(body)
+        body: body ? JSON.stringify(body) : null
     });
 
-    return resp.json();
+    return response.json();
 }
 
-// -------------------------------------------------------
-// apiGet(path)
-// Sends a GET request, automatically attaches token.
-// Returns parsed JSON response.
-// -------------------------------------------------------
-async function apiGet(path) {
-    const token = getToken();
+// -------- API METHODS --------
+const API = {
+    register: (data) => sendRequest("/api/users/register", "POST", data),
+    login: (data) => sendRequest("/api/users/login", "POST", data),
+    getProfile: () => sendRequest("/api/users/profile"),
+    updateProfile: (data) => sendRequest("/api/users/profile", "PUT", data),
+    changePassword: (data) => sendRequest("/api/users/update-password", "PUT", data),
+    logout: () => sendRequest("/api/users/logout", "POST")
+};
 
-    const headers = {};
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+// -------- UI MESSAGE --------
+function displayMessage(id, text, isError = false) {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-    const resp = await fetch(`${BASE_URL}${path}`, {
-        method: 'GET',
-        headers
-    });
-
-    return resp.json();
-}
-
-// -------------------------------------------------------
-// apiPut(path, body)
-// Sends a PUT request with JSON body + token.
-// -------------------------------------------------------
-async function apiPut(path, body) {
-    const token = getToken();
-
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-
-    const resp = await fetch(`${BASE_URL}${path}`, {
-        method:  'PUT',
-        headers,
-        body:    JSON.stringify(body)
-    });
-
-    return resp.json();
-}
-
-// -------------------------------------------------------
-// showMessage(elementId, text, isError)
-// Displays a message inside a <div id="..."> on the page.
-// -------------------------------------------------------
-function showMessage(elementId, text, isError = false) {
-    const box = document.getElementById(elementId);
-    if (!box) return;
-    box.textContent  = text;
-    box.style.color  = isError ? '#c0392b' : '#27ae60';
-    box.style.display = 'block';
+    el.textContent = text;
+    el.style.color = isError ? "red" : "green";
+    el.style.display = "block";
 }
