@@ -18,6 +18,7 @@ function loadUserData() {
   }
 }
 
+
 function saveUserData(data) {
   fs.writeFileSync("users.json", JSON.stringify(data, null, 2));
 }
