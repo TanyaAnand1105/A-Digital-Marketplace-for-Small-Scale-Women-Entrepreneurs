@@ -118,7 +118,7 @@
 
     if (data.ok) {
       localStorage.setItem("token", data.token);
-      alert("Login successful ✅");
+      alert("Login successful");
       window.location.href = "index.html";
     } else {
       throw new Error(data.error || "Login failed");
