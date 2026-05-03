@@ -7,10 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const SECRET = "mysecretkey";
+const JWT_SECRET_KEY = "super_secure_key";
 
-// ---------- HELPER FUNCTIONS ----------
-function readUsers() {
+// -------- USER DATA --------
+function loadUserData() {
   try {
     return JSON.parse(fs.readFileSync("users.json"));
   } catch {
@@ -18,119 +18,113 @@ function readUsers() {
   }
 }
 
-function writeUsers(data) {
+function saveUserData(data) {
   fs.writeFileSync("users.json", JSON.stringify(data, null, 2));
 }
 
-// ---------- SIGNUP ----------
-app.post("/api/auth/signup", (req, res) => {
-  const { name, email, password, role } = req.body;
+// -------- AUTH MIDDLEWARE --------
+function verifyUserToken(req, res, next) {
+  const authHeader = req.headers.authorization;
 
-  let users = readUsers();
-
-  if (users[email]) {
-    return res.json({ ok: false, error: "Email already exists" });
+  if (!authHeader) {
+    return res.status(401).json({ success: false, message: "Token missing" });
   }
 
-  users[email] = {
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET_KEY);
+    req.currentUser = decoded;
+    next();
+  } catch {
+    return res.status(403).json({ success: false, message: "Invalid token" });
+  }
+}
+
+// -------- REGISTER --------
+app.post("/api/users/register", (req, res) => {
+  const { name, email, password, role } = req.body;
+
+  const db = loadUserData();
+
+  if (db[email]) {
+    return res.json({ success: false, message: "User already exists" });
+  }
+
+  db[email] = {
     name,
     email,
     password,
     role,
     phone: "",
-    joinedAt: new Date().toISOString()
+    createdAt: new Date().toISOString()
   };
 
-  writeUsers(users);
+  saveUserData(db);
 
-  const token = jwt.sign({ email }, SECRET);
+  const token = jwt.sign({ email }, JWT_SECRET_KEY);
 
-  res.json({
-    ok: true,
-    token,
-    account: users[email],
-    msg: "Signup successful"
-  });
+  res.json({ success: true, token, user: db[email] });
 });
 
-// ---------- LOGIN ----------
-app.post("/api/auth/login", (req, res) => {
+// -------- LOGIN --------
+app.post("/api/users/login", (req, res) => {
   const { email, password } = req.body;
 
-  let users = readUsers();
+  const db = loadUserData();
+  const user = db[email];
 
-  if (!users[email] || users[email].password !== password) {
-    return res.json({ ok: false, error: "Invalid credentials" });
+  if (!user || user.password !== password) {
+    return res.json({ success: false, message: "Invalid credentials" });
   }
 
-  const token = jwt.sign({ email }, SECRET);
+  const token = jwt.sign({ email }, JWT_SECRET_KEY);
 
-  res.json({
-    ok: true,
-    token,
-    account: users[email],
-    msg: "Login successful"
-  });
+  res.json({ success: true, token, user });
 });
 
-// ---------- AUTH MIDDLEWARE ----------
-function auth(req, res, next) {
-  const token = req.headers.authorization;
+// -------- PROFILE --------
+app.get("/api/users/profile", verifyUserToken, (req, res) => {
+  const db = loadUserData();
+  const user = db[req.currentUser.email];
 
-  if (!token) return res.json({ ok: false });
-
-  try {
-    const data = jwt.verify(token, SECRET);
-    req.user = data;
-    next();
-  } catch {
-    res.json({ ok: false });
-  }
-}
-
-// ---------- GET PROFILE ----------
-app.get("/api/auth/me", auth, (req, res) => {
-  let users = readUsers();
-  const user = users[req.user.email];
-
-  res.json({ ok: true, account: user });
+  res.json({ success: true, user });
 });
 
-// ---------- UPDATE PROFILE ----------
-app.put("/api/auth/me", auth, (req, res) => {
-  let users = readUsers();
-  let user = users[req.user.email];
+// -------- UPDATE PROFILE --------
+app.put("/api/users/profile", verifyUserToken, (req, res) => {
+  const db = loadUserData();
+  const user = db[req.currentUser.email];
 
-  user.name = req.body.name || user.name;
-  user.phone = req.body.phone || user.phone;
+  user.name = req.body.name ?? user.name;
+  user.phone = req.body.phone ?? user.phone;
 
-  users[req.user.email] = user;
-  writeUsers(users);
+  db[req.currentUser.email] = user;
+  saveUserData(db);
 
-  res.json({ ok: true, account: user });
+  res.json({ success: true, user });
 });
 
-// ---------- CHANGE PASSWORD ----------
-app.put("/api/auth/change-password", auth, (req, res) => {
-  let users = readUsers();
-  let user = users[req.user.email];
+// -------- CHANGE PASSWORD --------
+app.put("/api/users/update-password", verifyUserToken, (req, res) => {
+  const db = loadUserData();
+  const user = db[req.currentUser.email];
 
   if (user.password !== req.body.oldPassword) {
-    return res.json({ ok: false, error: "Wrong old password" });
+    return res.json({ success: false, message: "Wrong old password" });
   }
 
   user.password = req.body.newPassword;
-  writeUsers(users);
+  saveUserData(db);
 
-  res.json({ ok: true, msg: "Password updated" });
+  res.json({ success: true, message: "Password updated" });
 });
 
-// ---------- LOGOUT ----------
-app.post("/api/auth/logout", (req, res) => {
-  res.json({ ok: true });
+// -------- LOGOUT --------
+app.post("/api/users/logout", (req, res) => {
+  res.json({ success: true });
 });
 
-// ---------- START ----------
 app.listen(5000, () => {
   console.log("Server running on http://localhost:5000");
 });
