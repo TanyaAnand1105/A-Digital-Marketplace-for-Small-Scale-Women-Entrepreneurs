@@ -1,83 +1,59 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KalaKriti</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <script>
-if(localStorage.getItem("isLoggedIn") === "true"){
-    window.location.href = "dashboard.html";
-}
-</script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+     <link rel="stylesheet" href="/frontend/static/css/style.css">
 </head>
 
 <body>
 
-<header>
-    <h1>KalaKriti</h1>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="sell.html">Sell Product</a>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Signup</a>
-    </nav>
-
-</header>
-
-
-
+<!-- ================= HERO ================= -->
 <section class="hero">
+    <div class="hero-left">
+        <span class="tag">🌸 SUPPORTING WOMEN ENTREPRENEURS</span>
 
-<div class="hero-text">
+        <h1>
+            Handcrafted <br>
+            with <br>
+            <span>Heart & <br> Soul</span>
+        </h1>
 
-<h2>Support Handmade Creators</h2>
+        <p>
+            Discover one-of-a-kind handmade treasures by talented women artisans 
+            from across India. Every purchase empowers a creator.
+        </p>
 
-<p>Discover unique handmade products crafted by talented creators.</p>
+        <div class="buttons">
+            <button class="btn-primary small" onclick="window.location.href='signup.html'">
+ 🛍 Shop Now
+</button>
+            <button class="btn-primary small" onclick="window.location.href='signup.html'">
+  Become a Seller
+</button>
+        <div class="stats">
+            <div><h3>500+</h3><p>Women Artisans</p></div>
+            <div><h3>10K+</h3><p>Handmade Products</p></div>
+            <div><h3>50K+</h3><p>Happy Customers</p></div>
+        </div>
+    </div>
 
-<a href="shop.html">
-<button>Shop Now</button>
-</a>
-
-</div>
-
+    <div class="hero-right"></div>
 </section>
 
-<section>
 
-<h2>Featured Products</h2>
-
-<div class="product-grid">
-
-<div class="product-card">
-<img src="../static/images/bag.jpg" alt="Crochet Bag" width="200">
-<h3>Crochet Bag</h3>
-<p>Price: ₹450</p>
-<button onclick="addToCart()">View Product</button>
-</div>
-
-<div class="product-card">
-<img src="../static/images/jewellery.jpg" alt="Handmade Jewellery" width="200">
-<h3>Handmade Jewellery</h3>
-<p>Price: ₹300</p>
-<button onclick="addToCart()">View Product</button>
-</div>
-
-<div class="product-card">
-<img src="../static/images/sweater.jpg" alt="Knitted Sweater" width="200">
-<h3>Knitted Sweater</h3>
-<p>Price: ₹900</p>
-<button onclick="addToCart()">View Product</button>
-</div>
-
-</div>
-
+<!-- ================= CATEGORY ================= -->
+<section class="section">
+    <div class="section-header">
+        <h2>Shop by <span>Category</span></h2>
+        <p>Find exactly what you love</p>
+    </div>
 </section>
-
-<section>
-
-<h2>Categories</h2>
 
 <div class="categories">
 
@@ -101,18 +77,165 @@ if(localStorage.getItem("isLoggedIn") === "true"){
 <h3>Knitted Items</h3>
 </div>
 
+<div class="category-card">
+<h3>Homemade Food</h3>
 </div>
 
+<div class="category-card">
+<h3>Knitted Items</h3>
+</div>
+
+<!-- ================= FEATURED ================= -->
+<!-- ================= FEATURED ================= -->
+<section class="section">
+
+    <div class="featured-top">
+
+        <h2>
+            Featured <span>Products</span>
+        </h2>
+
+        <p>Handpicked by our creators</p>
+
+        <button class="btn-primary small" onclick="window.location.href='signup.html'">
+            View All Products →
+        </button>
+
+    </div>
+
 </section>
+
+
+<!-- PRODUCTS START -->
+<div class="products">
+
+    <div class="product-card">
+        <img src="/frontend/static/images/bag.jpg" alt="Crochet Bag">
+        <h3>Crochet Bag</h3>
+        <p>Price: ₹450</p>
+        <button onclick="addToCart()">View Product</button>
+    </div>
+
+    <div class="product-card">
+        <img src="/frontend/static/images/jewellery.jpg" alt="Handmade Jewellery">
+        <h3>Handmade Jewellery</h3>
+        <p>Price: ₹300</p>
+        <button onclick="addToCart()">View Product</button>
+    </div>
+
+    <div class="product-card">
+        <img src="/frontend/static/images/sweater.jpg" alt="Knitted Sweater">
+        <h3>Knitted Sweater</h3>
+        <p>Price: ₹900</p>
+        <button onclick="addToCart()">View Product</button>
+    </div>
+ <div class="product-card">
+        <img src="/frontend/static/images/bag.jpg" alt="Crochet Bag">
+        <h3>Crochet Bag</h3>
+        <p>Price: ₹450</p>
+        <button onclick="addToCart()">View Product</button>
+    </div>
+
+    <div class="product-card">
+        <img src="/frontend/static/images/jewellery.jpg" alt="Handmade Jewellery">
+        <h3>Handmade Jewellery</h3>
+        <p>Price: ₹300</p>
+        <button onclick="addToCart()">View Product</button>
+    </div>
+    <div class="product-card">
+        <img src="/frontend/static/images/jewellery.jpg" alt="Handmade Jewellery">
+        <h3>Handmade Jewellery</h3>
+        <p>Price: ₹300</p>
+        <button onclick="addToCart()">View Product</button>
+    </div>
+</div>
+<!-- PRODUCTS END -->
+
+<!-- ================= MISSION ================= -->
+<section class="mission">
+    <div class="mission-left">
+        <span>OUR MISSION</span>
+    </div>
+
+    <div class="mission-center">
+        <h2>
+            Empowering Women, <span>One Craft at a Time</span>
+        </h2>
+
+        <p>
+            KalaKriti is dedicated to connecting talented women artisans with 
+            customers who appreciate authentic handmade craftsmanship. 
+            Every product sold directly supports an artisan's livelihood.
+        </p>
+    </div>
+
+    <div class="mission-right">
+        <div>🌿 <h4>Eco-Friendly</h4><p>Sustainable crafts</p></div>
+        <div>💯 <h4>Authentic</h4><p>100% handmade</p></div>
+        <div>🤝 <h4>Fair Trade</h4><p>Artisians earn more</p></div>
+        <div>🏆 <h4>Quality</h4><p>Curated products</p></div>
+    </div>
+</section>
+
+
+<!-- ================= NEW ARRIVALS ================= -->
+<section class="section">
+    <div class="section-header">
+        <h2>New <span>Arrivals</span></h2>
+        <p>Fresh from our artisans</p>
+    </div>
+</section>
+
+
+<!-- ================= SUBSCRIBE ================= -->
+<section class="subscribe">
+    <h2>Stay in the Loop 📬</h2>
+    <p>Get updates on new arrivals, artisan stories and exclusive offers</p>
+
+    <input type="email" placeholder="your@email.com">
+    <button>Subscribe</button>
+</section>
+
+
+<!-- ================= FOOTER ================= -->
 <footer>
-    <p>© 2026 Inclusive Handmade Marketplace</p>
+    <div class="footer-left">
+        <h2><span>Kala</span>Kriti</h2>
+        <p>
+            Empowering women artisans by connecting them with customers 
+            who value authentic handmade craftsmanship.
+        </p>
+    </div>
+
+    <div class="footer-links">
+        <div>
+            <h4>Quick Links</h4>
+            <p>Home</p>
+            <p>Shop</p>
+            <p>Wishlist</p>
+            <p>Cart</p>
+        </div>
+
+        <div>
+            <h4>Sellers</h4>
+            <p>Become a Seller</p>
+            <p>Dashboard</p>
+            <p>Add Product</p>
+        </div>
+
+        <div>
+            <h4>Categories</h4>
+            <p>Bags & Purses</p>
+            <p>Sarees</p>
+            <p>Jewellery</p>
+            <p>Pottery</p>
+        </div>
+    </div>
+
+    <div class="copyright">
+        © 2026 KalaKriti. All rights reserved.
+    </div>
 </footer>
-<script>
-if(localStorage.getItem("isLoggedIn") === "true"){
-    document.querySelector('a[href="login.html"]').style.display = "none";
-    document.querySelector('a[href="signup.html"]').style.display = "none";
-}
-</script>
+
 </body>
-<script src="../static/js/script.js"></script>
 </html>

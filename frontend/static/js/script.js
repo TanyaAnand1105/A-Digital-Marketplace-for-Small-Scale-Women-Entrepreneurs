@@ -197,3 +197,86 @@ function checkLoginRedirect(event){
     window.location.href = "login.html";
   }
 }
+console.log("JS SAFE RUNNING ✅");
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  // ================= CARD SELECT =================
+  const cards = document.querySelectorAll(".card");
+
+  if(cards.length){
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        cards.forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+      });
+    });
+  }
+
+  // ================= ROLE SELECT =================
+  const roles = document.querySelectorAll(".role");
+
+  if(roles.length){
+    roles.forEach(role => {
+      role.addEventListener("click", () => {
+        roles.forEach(r => r.classList.remove("active"));
+        role.classList.add("active");
+      });
+    });
+  }
+
+  // ================= PASSWORD TOGGLE =================
+ document.querySelectorAll(".eye").forEach(eye => {
+
+  eye.addEventListener("click", function(){
+
+    const input = document.getElementById(this.dataset.id);
+    if(!input) return;
+
+    // CURRENT STATE CHECK
+    if(input.type === "password"){
+      input.type = "text";
+      this.classList.remove("fa-eye");
+      this.classList.add("fa-eye-slash");
+    } 
+    else {
+      input.type = "password";
+      this.classList.remove("fa-eye-slash");
+      this.classList.add("fa-eye");
+    }
+
+    console.log("TOGGLED:", input.type); // debug
+  });
+
+});
+  // ================= LOGIN REDIRECT =================
+  const loginBtn = document.getElementById("loginBtn");
+
+  if(loginBtn){
+    loginBtn.onclick = () => {
+      window.location.href = "/dashboard"; // FIX: meaningful redirect
+    };
+  }
+
+});
+
+if(loginLink){
+  loginLink.onclick = () => window.location.href = "login.html";
+}
+
+const loginRedirect = document.getElementById("loginRedirect");
+
+if(loginRedirect){
+  loginRedirect.onclick = () => {
+    window.location.href = "login.html";
+  };
+}
+document.getElementById("signupForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    alert("Signup Successful!");
+
+    window.location.href = "/login";
+});

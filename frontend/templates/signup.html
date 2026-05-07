@@ -1,68 +1,214 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-<title>Create Account</title>
-<link rel="stylesheet" href="../static/css/style.css">
+<meta charset="UTF-8">
+<title>Signup</title>
+
+<link rel="stylesheet" href="/static/css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script defer src="/static/js/script.js"></script>
 </head>
 
-<body class="login-body">
+<!-- ❌ FIXED: removed duplicate body -->
+<body class="auth-body">
 
-<div class="login-container">
+<div class="container">
 
-<div class="login-image">
-<img src="../static/images/login-art.png">
+  <!-- LEFT -->
+  <div class="left">
+
+    <div class="circle"></div>
+
+    <img src="/static/images/login-art.png" class="avatar">
+
+    <h2>KalaKriti</h2>
+
+    <p>
+      Empowering women artisans.
+      <br>
+      Discover handcrafted treasures.
+    </p>
+
+    <span>Already have an account?</span>
+
+    <button class="outline-btn"
+      onclick="window.location.href='login.html'">
+      Login →
+    </button>
+
+    <div class="stats">
+      <div>
+        <h3>500+</h3>
+        <p>Artisans</p>
+      </div>
+
+      <div>
+        <h3>10K+</h3>
+        <p>Products</p>
+      </div>
+
+      <div>
+        <h3>50K+</h3>
+        <p>Customers</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+
+    <h2>Create Account</h2>
+
+    <p class="sub">
+      Join our community of artisans and buyers
+    </p>
+
+    <!-- ✅ FORM ADDED -->
+    <form id="signupForm" action="/signup" method="post">
+
+      <!-- NAME -->
+      <label>Full Name</label>
+
+      <div class="input-box">
+        <i class="fa-solid fa-user"></i>
+
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Your full name"
+        >
+      </div>
+
+      <span class="error" id="nameError">
+        Please enter your name
+      </span>
+
+      <!-- EMAIL -->
+      <label>Email Address</label>
+
+      <div class="input-box">
+        <i class="fa-solid fa-envelope"></i>
+
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="your@email.com"
+        >
+      </div>
+
+      <span class="error" id="emailError">
+        Please enter a valid email
+      </span>
+
+      <!-- PASSWORD -->
+      <label>Password</label>
+
+      <div class="input-box pass-box">
+
+        <i class="fa-solid fa-lock"></i>
+
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Min. 6 characters"
+        >
+
+        <i class="fa-solid fa-eye eye"
+           data-id="password"></i>
+
+      </div>
+
+      <span class="error" id="passError">
+        Password must be at least 6 characters
+      </span>
+
+      <!-- CONFIRM -->
+      <label>Confirm Password</label>
+
+      <div class="input-box pass-box">
+
+        <i class="fa-solid fa-lock"></i>
+
+        <input
+          type="password"
+          name="confirm password"
+          id="confirm"
+          placeholder="Repeat password"
+        >
+
+        <i class="fa-solid fa-eye eye"
+           data-id="confirm"></i>
+
+      </div>
+
+      <span class="error" id="confirmError">
+        Passwords do not match
+      </span>
+
+      <!-- ROLE -->
+      <label>I want to</label>
+
+      <div class="roles">
+
+        <div class="role active" data-role="buyer">
+          🛍 Buy Products
+        </div>
+
+        <div class="role" data-role="seller">
+          🏪 Sell Products
+        </div>
+
+      </div>
+
+      <!-- BUTTON -->
+      <button id="signupBtn" type="submit">
+        Create Account 🎉
+      </button>
+
+    </form>
+
+    <p class="bottom">
+
+      Already have an account?
+
+      <span
+        id="loginLink"
+        onclick="window.location.href='login.html'"
+        style="color:#ff2f92; cursor:pointer;"
+      >
+        Login here
+      </span>
+
+    </p>
+
+  </div>
+
 </div>
 
-<div class="login-form">
+<!-- ✅ REDIRECT SCRIPT -->
 
-<h2>Create Account</h2>
-
-<form onsubmit="handleSignup(event)">
-
-<input type="text" placeholder="Full Name" required>
-
-<input type="email" placeholder="Email" required>
-
-<input type="password" placeholder="Password" required>
-
-<input type="password" placeholder="Confirm Password" required>
-
-<button type="submit">Create Account</button>
-
-<div class="login-links">
-
-<a href="login.html">Already have an account?</a>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-<!-- SIGNUP LOGIC -->
 <script>
-function handleSignup(event){
-  event.preventDefault();
 
-  let pass = document.getElementById("password").value;
-  let confirm = document.getElementById("confirmPassword").value;
+document.getElementById("signupForm")
+.addEventListener("submit", function(e){
 
-  if(pass !== confirm){
-    alert("Passwords do not match!");
-    return;
-  }
+    e.preventDefault();
 
-  // signup success → login automatically
-  localStorage.setItem("isLoggedIn", "true");
+    alert("Signup Successful!");
 
-  window.location.href = "dashboard.html";
-}
+    window.location.href = "login.html";
+
+});
+
 </script>
 
-<script src="../static/js/script.js"></script>
-
 </body>
-
 </html>

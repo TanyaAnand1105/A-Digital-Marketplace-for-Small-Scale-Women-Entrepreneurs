@@ -1,130 +1,109 @@
 const express = require("express");
-const cors = require("cors");
+const path = require("path");
 const fs = require("fs");
-const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const app = express();
-app.use(cors());
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const JWT_SECRET_KEY = "super_secure_key";
+/* ================= STATIC FILES ================= */
 
-// -------- USER DATA --------
-function loadUserData() {
-  try {
-    return JSON.parse(fs.readFileSync("users.json"));
-  } catch {
-    return {};
-  }
-}
+app.use("/static", express.static(path.join(__dirname, "../frontend/static")));
 
-function saveUserData(data) {
-  fs.writeFileSync("users.json", JSON.stringify(data, null, 2));
-}
+/* ================= ROUTES ================= */
 
-// -------- AUTH MIDDLEWARE --------
-function verifyUserToken(req, res, next) {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    return res.status(401).json({ success: false, message: "Token missing" });
-  }
-
-  const token = authHeader.split(" ")[1];
-
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET_KEY);
-    req.currentUser = decoded;
-    next();
-  } catch {
-    return res.status(403).json({ success: false, message: "Invalid token" });
-  }
-}
-
-// -------- REGISTER --------
-app.post("/api/users/register", (req, res) => {
-  const { name, email, password, role } = req.body;
-
-  const db = loadUserData();
-
-  if (db[email]) {
-    return res.json({ success: false, message: "User already exists" });
-  }
-
-  db[email] = {
-    name,
-    email,
-    password,
-    role,
-    phone: "",
-    createdAt: new Date().toISOString()
-  };
-
-  saveUserData(db);
-
-  const token = jwt.sign({ email }, JWT_SECRET_KEY);
-
-  res.json({ success: true, token, user: db[email] });
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/templates/index.html"));
 });
 
-// -------- LOGIN --------
-app.post("/api/users/login", (req, res) => {
-  const { email, password } = req.body;
-
-  const db = loadUserData();
-  const user = db[email];
-
-  if (!user || user.password !== password) {
-    return res.json({ success: false, message: "Invalid credentials" });
-  }
-
-  const token = jwt.sign({ email }, JWT_SECRET_KEY);
-
-  res.json({ success: true, token, user });
+app.get("/signup", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/templates/signup.html"));
 });
 
-// -------- PROFILE --------
-app.get("/api/users/profile", verifyUserToken, (req, res) => {
-  const db = loadUserData();
-  const user = db[req.currentUser.email];
-
-  res.json({ success: true, user });
+app.get("/login", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/templates/login.html"));
 });
 
-// -------- UPDATE PROFILE --------
-app.put("/api/users/profile", verifyUserToken, (req, res) => {
-  const db = loadUserData();
-  const user = db[req.currentUser.email];
+app.get("/dashboard", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/templates/dashboard.html"));
+});
+/* ================= LOGIN ================= */
 
-  user.name = req.body.name ?? user.name;
-  user.phone = req.body.phone ?? user.phone;
+app.post("/login", async (req, res) => {
 
-  db[req.currentUser.email] = user;
-  saveUserData(db);
+    const { email, password } = req.body;
 
-  res.json({ success: true, user });
+    const usersPath =
+    path.join(__dirname, "../database/users.json");
+
+    if (!fs.existsSync(usersPath)) {
+        return res.send("No users found");
+    }
+
+    const data =
+    fs.readFileSync(usersPath);
+
+    const users = JSON.parse(data);
+
+    const user = users.find(
+        u => u.email === email
+    );
+
+    if (!user) {
+        return res.send("User not found");
+    }
+
+    const isMatch =
+    await bcrypt.compare(
+        password,
+        user.password
+    );
+
+    if (!isMatch) {
+        return res.send("Wrong password");
+    }
+
+    res.redirect("/dashboard");
+
 });
 
-// -------- CHANGE PASSWORD --------
-app.put("/api/users/update-password", verifyUserToken, (req, res) => {
-  const db = loadUserData();
-  const user = db[req.currentUser.email];
+app.post("/signup", async (req, res) => {
 
-  if (user.password !== req.body.oldPassword) {
-    return res.json({ success: false, message: "Wrong old password" });
-  }
+    const { name, email, password } = req.body;
 
-  user.password = req.body.newPassword;
-  saveUserData(db);
+    const hashedPassword =
+    await bcrypt.hash(password, 10);
 
-  res.json({ success: true, message: "Password updated" });
+    const newUser = {
+        name,
+        email,
+        password: hashedPassword
+    };
+
+    const usersPath =
+    path.join(__dirname, "../database/users.json");
+
+    let users = [];
+
+    if (fs.existsSync(usersPath)) {
+        const data = fs.readFileSync(usersPath);
+        users = JSON.parse(data);
+    }
+
+    users.push(newUser);
+
+    fs.writeFileSync(
+        usersPath,
+        JSON.stringify(users, null, 2)
+    );
+
+    res.redirect("/login");
 });
 
-// -------- LOGOUT --------
-app.post("/api/users/logout", (req, res) => {
-  res.json({ success: true });
-});
+/* ================= SERVER ================= */
 
-app.listen(5000, () => {
-  console.log("Server running on http://localhost:5000");
+app.listen(3000, () => {
+    console.log("Server running on http://localhost:3000");
 });

@@ -1,0 +1,28 @@
+{
+  "name": "a-digital-marketplace-for-small-scale-women-entrepreneurs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TanyaAnand1105/A-Digital-Marketplace-for-Small-Scale-Women-Entrepreneurs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TanyaAnand1105/A-Digital-Marketplace-for-Small-Scale-Women-Entrepreneurs/issues"
+  },
+  "homepage": "https://github.com/TanyaAnand1105/A-Digital-Marketplace-for-Small-Scale-Women-Entrepreneurs#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1"
+  }
+}
