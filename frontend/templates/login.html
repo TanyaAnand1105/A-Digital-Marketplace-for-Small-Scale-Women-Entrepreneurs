@@ -51,7 +51,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
     <button
       class="outline-btn"
-      onclick="window.location.href='signup.html'"
+      onclick="window.location.href='/signup'"
     >
       Sign Up Free →
     </button>
@@ -65,7 +65,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     <p class="sub">
       Enter your credentials to access your account
     </p>
-    <form id="loginForm" action="login.html" method="post">
+    <form id="loginForm" action="/login" method="post">
       <label>Email Address</label>
 
       <div class="input-box">
@@ -148,7 +148,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
       <button
         class="signup-btn"
-        onclick="window.location.href='signup.html'" >
+        onclick="window.location.href='/signup'" >
         Continue to Sign Up →
     </button>
     </div>
@@ -156,7 +156,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       Don't have an account?
       <span
         id="loginLink"
-        onclick="window.location.href='signup.html'"
+        onclick="window.location.href='/signup'"
         style="color:#ff2f92; cursor:pointer;"
       >
         Sign up here
@@ -183,7 +183,7 @@ document.getElementById("loginForm")
 
     alert("Login Successful!");
 
-    window.location.href = "dashboard.html";
+    window.location.href = "/dashboard";
 
 });
 
