@@ -82,13 +82,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
           name="name"
           id="name"
           placeholder="Your full name"
-        >
+        required>
       </div>
 
-      <span class="error" id="nameError">
-        Please enter your name
-      </span>
-
+      <span class="error" id="nameError"></span>
       <!-- EMAIL -->
       <label>Email Address</label>
 
@@ -100,12 +97,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
           name="email"
           id="email"
           placeholder="your@email.com"
-        >
+        required>
       </div>
 
-      <span class="error" id="emailError">
-        Please enter a valid email
-      </span>
+     <span class="error" id="emailError"></span>
 
       <!-- PASSWORD -->
       <label>Password</label>
@@ -119,17 +114,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
           name="password"
           id="password"
           placeholder="Min. 6 characters"
-        >
+        required>
 
         <i class="fa-solid fa-eye eye"
            data-id="password"></i>
 
       </div>
 
-      <span class="error" id="passError">
-        Password must be at least 6 characters
-      </span>
-
+      <span class="error" id="passError"></span>
       <!-- CONFIRM -->
       <label>Confirm Password</label>
 
@@ -138,27 +130,27 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         <i class="fa-solid fa-lock"></i>
 
         <input
-          type="password"
-          name="confirm password"
-          id="confirm"
-          placeholder="Repeat password"
-        >
+    type="password"
+    name="confirmPassword"
+    id="confirmPassword"
+    placeholder="Confirm Password"
+    required>
 
         <i class="fa-solid fa-eye eye"
-           data-id="confirm"></i>
+           data-id="confirmPassword"></i>
 
       </div>
 
-      <span class="error" id="confirmError">
-        Passwords do not match
-      </span>
+      <p id="passwordError"></p>
+
+      <span class="error" id="confirmError"></span>
 
       <!-- ROLE -->
       <label>I want to</label>
 
       <div class="roles">
 
-        <div class="role active" data-role="buyer">
+        <div class="role" data-role="buyer">
           🛍 Buy Products
         </div>
 
@@ -168,6 +160,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
       </div>
 
+      <input
+  type="hidden"
+  name="role"
+  id="selectedRole">
+
       <!-- BUTTON -->
       <button id="signupBtn" type="submit">
         Create Account 🎉
@@ -175,36 +172,91 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
     </form>
 
-    <p class="bottom">
+   <p class="bottom">
 
-      Already have an account?
+  Already have an account?
 
-      <span
-        id="loginLink"
-        onclick="window.location.href='/login'"
-        style="color:#ff2f92; cursor:pointer;"
-      >
-        Login here
-      </span>
+  <button class="login-link-btn"
+    onclick="window.location.href='/login'">
 
-    </p>
+    Login here
+
+  </button>
+
+</p>
 
   </div>
 
 </div>
-
-<!-- ✅ REDIRECT SCRIPT -->
+  
 
 <script>
+  document
+  .getElementById("signupForm")
+  .addEventListener("submit", function(e){
+    localStorage.setItem(
+   "userName",
+   document.getElementById("name").value
+);
+const role =
+document.getElementById("selectedRole").value;
 
-document.getElementById("signupForm")
-.addEventListener("submit", function(e){
+if(role === ""){
 
     e.preventDefault();
 
-    alert("Signup Successful!");
+    alert("Please select Buyer or Seller 😭");
 
-    window.location.href = "/login";
+    return;
+}
+
+    const password =
+    document.getElementById("password").value;
+
+    const confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+    const error =
+    document.getElementById("passwordError");
+
+    if(password !== confirmPassword){
+
+        e.preventDefault();
+
+        error.innerText =
+        "Passwords do not match 😭";
+
+        error.style.color = "red";
+
+        error.style.marginTop = "8px";
+
+        error.style.fontWeight = "600";
+
+    }
+
+});
+
+const roles = document.querySelectorAll(".role");
+
+const selectedRole =
+document.getElementById("selectedRole");
+
+roles.forEach(role => {
+
+    role.addEventListener("click", () => {
+
+        roles.forEach(r => {
+            r.classList.remove("active");
+        });
+
+        role.classList.add("active");
+
+        selectedRole.value =
+        role.dataset.role;
+
+        console.log(selectedRole.value);
+
+    });
 
 });
 

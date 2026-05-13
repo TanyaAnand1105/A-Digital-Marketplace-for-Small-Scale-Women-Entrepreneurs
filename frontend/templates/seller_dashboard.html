@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Seller Dashboard</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet"
+href="/static/css/style.css">
+
+</head>
+
+<body class="dashboard-body">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo-section">
+
+        <h2>KalaKriti</h2>
+
+        <p>
+            Empowering Women Artisans ✨
+        </p>
+
+    </div>
+
+    <div class="menu">
+
+        <div class="menu-item active">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>Dashboard</span>
+
+        </div>
+
+        <div class="menu-item">
+
+            <i class="fa-solid fa-plus"></i>
+
+            <span>Add Product</span>
+
+        </div>
+
+        <div class="menu-item">
+
+            <i class="fa-solid fa-box"></i>
+
+            <span>Manage Products</span>
+
+        </div>
+
+        <div class="menu-item">
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+            <span>Orders</span>
+
+        </div>
+
+        <div class="menu-item">
+
+            <i class="fa-solid fa-heart"></i>
+
+            <span>Wishlist</span>
+
+        </div>
+
+        <div class="menu-item">
+
+            <i class="fa-solid fa-user"></i>
+
+            <span>Profile</span>
+
+        </div>
+
+        <div class="menu-item">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </div>
+
+    </div>
+
+    <div class="upgrade-card">
+
+        <h3>Grow Your Store 🚀</h3>
+
+        <p>
+            Reach more buyers and
+            boost your sales.
+        </p>
+
+        <button>
+            Explore
+        </button>
+
+    </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main-content">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+            type="text"
+            placeholder="Search products...">
+
+        </div>
+
+        <div class="top-actions">
+
+            <div class="notification">
+
+                <i class="fa-solid fa-bell"></i>
+
+            </div>
+
+            <div class="profile-box">
+
+                <img
+                src="../static/images/profile.jpg.jpeg">
+
+                <div>
+
+                   <h4 id="sellerName">Seller</h4>
+
+                    <p>Seller</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- HERO -->
+
+    <div class="hero-section">
+
+        <div class="hero-text">
+
+            <h1>
+                Welcome Back 👋
+            </h1>
+
+            <p>
+                Manage your handmade products,
+                track sales, and grow your
+                artisan business beautifully.
+            </p>
+
+            <button>
+                + Add New Product
+            </button>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img
+            src="../static/images/dashboard-art.png">
+
+        </div>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-box"></i>
+
+            </div>
+
+            <h2>128</h2>
+
+            <p>Total Products</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+            </div>
+
+            <h2>84</h2>
+
+            <p>Total Orders</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+
+            </div>
+
+            <h2>₹25,400</h2>
+
+            <p>Total Earnings</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-star"></i>
+
+            </div>
+
+            <h2>4.9</h2>
+
+            <p>Store Rating</p>
+
+        </div>
+
+    </div>
+
+    <!-- PRODUCTS -->
+
+    <div class="products-section">
+
+        <div class="section-header">
+
+            <h2>Recent Products</h2>
+
+            <button>
+                View All
+            </button>
+
+        </div>
+
+        <div class="products-grid">
+
+            <!-- PRODUCT -->
+
+            <div class="product-card">
+
+                <img
+                src="../static/images/vase.jpg">
+
+                <div class="product-info">
+
+                    <h3>Handmade Vase</h3>
+
+                    <p class="price">
+                        ₹1200
+                    </p>
+
+                    <div class="product-footer">
+
+                        <span class="status">
+                            In Stock
+                        </span>
+
+                        <button class="edit-btn">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PRODUCT -->
+
+            <div class="product-card">
+
+                <img
+                src="../static/images/banner.jpg">
+
+                <div class="product-info">
+
+                    <h3>Wall Art</h3>
+
+                    <p class="price">
+                        ₹1800
+                    </p>
+
+                    <div class="product-footer">
+
+                        <span class="status">
+                            In Stock
+                        </span>
+
+                        <button class="edit-btn">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PRODUCT -->
+
+            <div class="product-card">
+
+                <img
+                src="../static/images/craft.jpg">
+
+                <div class="product-info">
+
+                    <h3>Craft Item</h3>
+
+                    <p class="price">
+                        ₹950
+                    </p>
+
+                    <div class="product-footer">
+
+                        <span class="status">
+                            Limited
+                        </span>
+
+                        <button class="edit-btn">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+const sellerName =
+localStorage.getItem("userName");
+
+if(sellerName){
+
+    document.getElementById(
+        "sellerName"
+    ).innerText = sellerName;
+
+}
+
+</script>
+</body>
+</html>

@@ -213,18 +213,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-  // ================= ROLE SELECT =================
-  const roles = document.querySelectorAll(".role");
-
-  if(roles.length){
-    roles.forEach(role => {
-      role.addEventListener("click", () => {
-        roles.forEach(r => r.classList.remove("active"));
-        role.classList.add("active");
-      });
-    });
-  }
-
+});
   // ================= PASSWORD TOGGLE =================
  document.querySelectorAll(".eye").forEach(eye => {
 
@@ -250,18 +239,14 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
   // ================= LOGIN REDIRECT =================
-  const loginBtn = document.getElementById("loginBtn");
+ 
 
-  if(loginBtn){
-    loginBtn.onclick = () => {
-      window.location.href = "/dashboard"; // FIX: meaningful redirect
-    };
-  }
-
-});
+const loginLink = document.getElementById("loginLink");
 
 if(loginLink){
-  loginLink.onclick = () => window.location.href = "login.html";
+  loginLink.onclick = () => {
+    window.location.href = "login.html";
+  };
 }
 
 const loginRedirect = document.getElementById("loginRedirect");
@@ -270,13 +255,4 @@ if(loginRedirect){
   loginRedirect.onclick = () => {
     window.location.href = "login.html";
   };
-}
-document.getElementById("signupForm")
-.addEventListener("submit", function(e){
-
-    e.preventDefault();
-
-    alert("Signup Successful!");
-
-    window.location.href = "/login";
-});
+};
