@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Manage Products
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet"
+href="/static/css/style.css">
+
+</head>
+
+<body class="dashboard-body">
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+    <div>
+
+        <h1 class="logo">
+            KalaKriti
+        </h1>
+
+        <p class="tagline">
+            Empowering Women Artisans ✨
+        </p>
+
+        <div class="sidebar-menu">
+
+            <div class="menu-item" 
+            onclick="window.location.href='/seller_dashboard'">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>Dashboard</span>
+
+            </div>
+
+            <div class="menu-item"
+            onclick="window.location.href='/add_product'">
+
+                <i class="fa-solid fa-plus"></i>
+
+                <span>Add Product</span>
+
+            </div>
+
+            <div class="menu-item active"
+            onclick="window.location.href='/manage_products'">
+                <i class="fa-solid fa-box"></i>
+
+                <span>Manage Products</span>
+
+            </div>
+
+            <div class="menu-item"
+ onclick="window.location.href='/orders'">
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span>Orders</span>
+
+            </div>
+
+            <div class="menu-item"
+ onclick="window.location.href='/wishlist'">
+                <i class="fa-solid fa-heart"></i>
+
+                <span>Wishlist</span>
+
+            </div>
+
+            <div class="menu-item"
+ onclick="window.location.href='/profile'">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>Profile</span>
+
+            </div>
+
+            <div class="menu-item"
+             onclick="window.location.href='/login'">
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+ 
+                <span>Logout</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BOTTOM CARD -->
+
+    <div class="sidebar-bottom">
+
+        <h3>
+            Grow Your Store 🚀
+        </h3>
+
+        <p>
+            Reach more buyers and boost your sales.
+        </p>
+
+        <button>
+            Explore
+        </button>
+
+    </div>
+
+</div>
+<!-- ================= MAIN CONTENT ================= -->
+
+<div class="main-content">
+
+    <!-- TOP -->
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>
+                Manage Products 📦
+            </h1>
+
+            <p>
+                Edit, remove and manage products
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- PRODUCTS GRID -->
+
+    <div
+class="manage-products-grid"
+id="manageProductsGrid">
+
+</div>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+
+console.log("SCRIPT RUNNING");
+
+fetch("/products")
+
+.then(res => res.json())
+
+.then(data => {
+
+    console.log(data);
+
+    const grid =
+    document.getElementById(
+        "manageProductsGrid"
+    );
+
+    console.log(grid);
+
+    /* EMPTY */
+
+    if(data.length === 0){
+
+        grid.innerHTML = `
+
+        <div class="empty-products">
+
+            <h2>
+                No Products Yet 😭
+            </h2>
+
+            <p>
+                Add your first product 🚀
+            </p>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+    /* PRODUCTS */
+
+    data.reverse().forEach(product => {
+
+        grid.innerHTML += `
+
+        <div class="manage-card">
+
+            <img
+            src="${product.image}">
+
+            <div class="manage-info">
+
+                <h3>
+                    ${product.title}
+                </h3>
+
+                <p class="manage-price">
+                    ₹${product.price}
+                </p>
+
+                <span class="manage-category">
+                    ${product.category}
+                </span>
+
+                <!-- ACTIONS -->
+
+                <div class="manage-actions">
+
+                    <!-- EDIT -->
+
+                   <button
+class="edit-btn"
+onclick="window.location.href='/edit_product/${product.id}'">
+
+    <i class="fa-solid fa-pen"></i>
+
+</button>
+
+                    <!-- DELETE -->
+
+                    <button
+                    class="delete-btn"
+                    onclick="deleteProduct(${product.id})">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+})
+
+.catch(error => {
+
+    console.log(error);
+
+});
+
+/* ================= DELETE ================= */
+
+async function deleteProduct(id){
+
+    const confirmDelete =
+    confirm(
+        "Delete this product?"
+    );
+
+    if(!confirmDelete) return;
+
+    await fetch(
+        "/delete_product/" + id,
+        {
+            method:"DELETE"
+        }
+    );
+
+    location.reload();
+
+}
+
+</script>
+</body>
+</html>

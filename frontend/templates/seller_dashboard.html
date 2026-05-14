@@ -2,149 +2,84 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Seller Dashboard</title>
+    <title>Seller Dashboard</title>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<link rel="stylesheet"
-href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 
 </head>
 
 <body class="dashboard-body">
 
-<!-- SIDEBAR -->
+    <!-- SIDEBAR -->
 
-<div class="sidebar">
+    <div class="sidebar">
 
-    <div class="logo-section">
+        <div>
 
-        <h2>KalaKriti</h2>
+            <h1 class="logo">
+                KalaKriti
+            </h1>
 
-        <p>
-            Empowering Women Artisans ✨
-        </p>
+            <p class="tagline">
+                Empowering Women Artisans ✨
+            </p>
 
-    </div>
+            <div class="sidebar-menu">
 
-    <div class="menu">
+                <div class="menu-item active" onclick="window.location.href='/seller_dashboard'">
 
-        <div class="menu-item active">
+                    <i class="fa-solid fa-chart-line"></i>
 
-            <i class="fa-solid fa-chart-line"></i>
+                    <span>Dashboard</span>
 
-            <span>Dashboard</span>
+                </div>
 
-        </div>
+                <div class="menu-item" onclick="window.location.href='/add_product'">
 
-        <div class="menu-item">
+                    <i class="fa-solid fa-plus"></i>
 
-            <i class="fa-solid fa-plus"></i>
+                    <span>Add Product</span>
 
-            <span>Add Product</span>
+                </div>
 
-        </div>
+                <div class="menu-item" onclick="window.location.href='/manage_products'">
+                    <i class="fa-solid fa-box"></i>
 
-        <div class="menu-item">
+                    <span>Manage Products</span>
 
-            <i class="fa-solid fa-box"></i>
+                </div>
 
-            <span>Manage Products</span>
+                <div class="menu-item" onclick="window.location.href='/orders'">
+                    <i class="fa-solid fa-cart-shopping"></i>
 
-        </div>
+                    <span>Orders</span>
 
-        <div class="menu-item">
+                </div>
 
-            <i class="fa-solid fa-cart-shopping"></i>
+                <div class="menu-item" onclick="window.location.href='/wishlist'">
+                    <i class="fa-solid fa-heart"></i>
 
-            <span>Orders</span>
+                    <span>Wishlist</span>
 
-        </div>
+                </div>
 
-        <div class="menu-item">
+                <div class="menu-item" onclick="window.location.href='/profile'">
 
-            <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-user"></i>
 
-            <span>Wishlist</span>
+                    <span>Profile</span>
 
-        </div>
+                </div>
 
-        <div class="menu-item">
+                <div class="menu-item" onclick="window.location.href='/login'">
+                    <i class="fa-solid fa-right-from-bracket"></i>
 
-            <i class="fa-solid fa-user"></i>
-
-            <span>Profile</span>
-
-        </div>
-
-        <div class="menu-item">
-
-            <i class="fa-solid fa-right-from-bracket"></i>
-
-            <span>Logout</span>
-
-        </div>
-
-    </div>
-
-    <div class="upgrade-card">
-
-        <h3>Grow Your Store 🚀</h3>
-
-        <p>
-            Reach more buyers and
-            boost your sales.
-        </p>
-
-        <button>
-            Explore
-        </button>
-
-    </div>
-
-</div>
-
-<!-- MAIN -->
-
-<div class="main-content">
-
-    <!-- TOPBAR -->
-
-    <div class="topbar">
-
-        <div class="search-box">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-            type="text"
-            placeholder="Search products...">
-
-        </div>
-
-        <div class="top-actions">
-
-            <div class="notification">
-
-                <i class="fa-solid fa-bell"></i>
-
-            </div>
-
-            <div class="profile-box">
-
-                <img
-                src="../static/images/profile.jpg.jpeg">
-
-                <div>
-
-                   <h4 id="sellerName">Seller</h4>
-
-                    <p>Seller</p>
+                    <span>Logout</span>
 
                 </div>
 
@@ -152,209 +87,62 @@ href="/static/css/style.css">
 
         </div>
 
-    </div>
+        <!-- BOTTOM CARD -->
 
-    <!-- HERO -->
+        <div class="sidebar-bottom">
 
-    <div class="hero-section">
-
-        <div class="hero-text">
-
-            <h1>
-                Welcome Back 👋
-            </h1>
+            <h3>
+                Grow Your Store 🚀
+            </h3>
 
             <p>
-                Manage your handmade products,
-                track sales, and grow your
-                artisan business beautifully.
+                Reach more buyers and boost your sales.
             </p>
 
             <button>
-                + Add New Product
+                Explore
             </button>
 
         </div>
 
-        <div class="hero-image">
-
-            <img
-            src="../static/images/dashboard-art.png">
-
-        </div>
-
     </div>
+    <!-- MAIN -->
 
-    <!-- STATS -->
+    <div class="main-content">
 
-    <div class="stats-grid">
+        <!-- TOPBAR -->
 
-        <div class="stat-card">
+        <div class="topbar">
 
-            <div class="stat-icon">
+            <div class="search-box">
 
-                <i class="fa-solid fa-box"></i>
+                <i class="fa-solid fa-magnifying-glass"></i>
 
-            </div>
-
-            <h2>128</h2>
-
-            <p>Total Products</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-cart-shopping"></i>
+                <input type="text" placeholder="Search products...">
 
             </div>
 
-            <h2>84</h2>
+            <div class="top-actions">
 
-            <p>Total Orders</p>
+                <div class="notification">
 
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-indian-rupee-sign"></i>
-
-            </div>
-
-            <h2>₹25,400</h2>
-
-            <p>Total Earnings</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-
-                <i class="fa-solid fa-star"></i>
-
-            </div>
-
-            <h2>4.9</h2>
-
-            <p>Store Rating</p>
-
-        </div>
-
-    </div>
-
-    <!-- PRODUCTS -->
-
-    <div class="products-section">
-
-        <div class="section-header">
-
-            <h2>Recent Products</h2>
-
-            <button>
-                View All
-            </button>
-
-        </div>
-
-        <div class="products-grid">
-
-            <!-- PRODUCT -->
-
-            <div class="product-card">
-
-                <img
-                src="../static/images/vase.jpg">
-
-                <div class="product-info">
-
-                    <h3>Handmade Vase</h3>
-
-                    <p class="price">
-                        ₹1200
-                    </p>
-
-                    <div class="product-footer">
-
-                        <span class="status">
-                            In Stock
-                        </span>
-
-                        <button class="edit-btn">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-
-                    </div>
+                    <i class="fa-solid fa-bell"></i>
 
                 </div>
 
-            </div>
+                <div class="profile-box">
 
-            <!-- PRODUCT -->
+                    <img id="dashboardProfileImage" src="/static/images/avatar1.jpeg">
 
-            <div class="product-card">
+                    <div>
 
-                <img
-                src="../static/images/banner.jpg">
+                        <h3 id="dashboardProfileName">
+                            Seller
+                        </h3>
 
-                <div class="product-info">
-
-                    <h3>Wall Art</h3>
-
-                    <p class="price">
-                        ₹1800
-                    </p>
-
-                    <div class="product-footer">
-
-                        <span class="status">
-                            In Stock
-                        </span>
-
-                        <button class="edit-btn">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- PRODUCT -->
-
-            <div class="product-card">
-
-                <img
-                src="../static/images/craft.jpg">
-
-                <div class="product-info">
-
-                    <h3>Craft Item</h3>
-
-                    <p class="price">
-                        ₹950
-                    </p>
-
-                    <div class="product-footer">
-
-                        <span class="status">
-                            Limited
-                        </span>
-
-                        <button class="edit-btn">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
+                        <p>
+                            Seller
+                        </p>
 
                     </div>
 
@@ -364,22 +152,185 @@ href="/static/css/style.css">
 
         </div>
 
-    </div>
+        <!-- HERO -->
 
-</div>
-<script>
+        <div class="hero-section">
 
-const sellerName =
-localStorage.getItem("userName");
+            <div class="hero-text">
 
-if(sellerName){
+                <h1>
+                    Welcome Back 👋
+                </h1>
 
-    document.getElementById(
-        "sellerName"
-    ).innerText = sellerName;
+                <p>
+                    Manage your handmade products,
+                    track sales, and grow your
+                    artisan business beautifully.
+                </p>
 
-}
+                <button onclick="window.location.href='/add_product'">
+                    + Add New Product
+                </button>
 
-</script>
+            </div>
+
+
+
+        </div>
+
+        <!-- STATS -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-box"></i>
+
+                </div>
+
+                <h2>128</h2>
+
+                <p>Total Products</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                </div>
+
+                <h2>84</h2>
+
+                <p>Total Orders</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                </div>
+
+                <h2>₹25,400</h2>
+
+                <p>Total Earnings</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i class="fa-solid fa-star"></i>
+
+                </div>
+
+                <h2>4.9</h2>
+
+                <p>Store Rating</p>
+
+            </div>
+
+        </div>
+
+        <!-- PRODUCTS -->
+
+        <div class="products-section">
+
+            <div class="section-header">
+
+                <h2>Recent Products</h2>
+
+                <button>
+                    View All
+                </button>
+
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+            </div>
+            <script>
+
+               
+
+            </script>
+            <script>
+
+                fetch("/products")
+                    .then(res => res.json())
+                    .then(data => {
+
+                        const productsGrid =
+                            document.getElementById("productsGrid");
+
+                        data.reverse().forEach(product => {
+
+                            productsGrid.innerHTML += `
+
+        <div class="product-card">
+
+            <img src="${product.image}">
+
+            <div class="product-info">
+
+                <h3>${product.title}</h3>
+
+                <p class="price">
+                    ₹${product.price}
+                </p>
+
+                <div class="product-footer">
+
+                    <span class="status">
+                        ${product.category}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+        `;
+
+                        });
+
+                    });
+
+            </script>
+            <script>
+
+                fetch("/get_profile")
+
+                    .then(res => res.json())
+
+                    .then(data => {
+
+                        if (data.name) {
+
+                            document.getElementById(
+                                "dashboardProfileName"
+                            ).innerText =
+                                data.name;
+                        }
+
+                        if (data.image) {
+
+                            document.getElementById(
+                                "dashboardProfileImage"
+                            ).src =
+                                data.image;
+                        }
+
+                    });
+
+            </script>
 </body>
+
 </html>

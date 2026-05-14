@@ -256,3 +256,109 @@ if(loginRedirect){
     window.location.href = "login.html";
   };
 };
+
+console.log("EDIT PAGE WORKING");
+
+/* GET PRODUCT ID */
+
+const productId =
+window.location.pathname.split("/").pop();
+
+/* FETCH PRODUCTS */
+
+fetch("/products")
+
+.then(res => res.json())
+
+.then(products => {
+
+    const product =
+    products.find(
+        p => p.id == productId
+    );
+
+    if(!product) return;
+
+    /* FILL FORM */
+
+    document.getElementById(
+        "editTitle"
+    ).value = product.title;
+
+    document.getElementById(
+        "editPrice"
+    ).value = product.price;
+
+    document.getElementById(
+        "editCategory"
+    ).value = product.category;
+
+    document.getElementById(
+        "editDescription"
+    ).value = product.description;
+
+});
+
+/* SUBMIT */
+
+document.getElementById(
+    "editForm"
+)
+
+.addEventListener(
+"submit",
+
+async function(e){
+
+    e.preventDefault();
+
+    const updatedProduct = {
+
+        title:
+        document.getElementById(
+            "editTitle"
+        ).value,
+
+        price:
+        document.getElementById(
+            "editPrice"
+        ).value,
+
+        category:
+        document.getElementById(
+            "editCategory"
+        ).value,
+
+        description:
+        document.getElementById(
+            "editDescription"
+        ).value
+    };
+
+    await fetch(
+        "/update_product/" + productId,
+        {
+            method:"PUT",
+
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
+
+            body:JSON.stringify(
+                updatedProduct
+            )
+        }
+    );
+
+    alert(
+        "Product updated 😎"
+    );
+
+    window.location.href =
+    "/manage_products";
+
+});
+
+/* IMAGE PREVIEW */
+

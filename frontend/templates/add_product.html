@@ -1,187 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Product – KalaKriti</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../static/css/style.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Add Product</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet"
+href="/static/css/style.css">
+
 </head>
-<body>
-<div id="navbar"></div>
 
-<div class="page-hdr">
-  <div class="page-hdr-cont">
-    <h1>List a <span style="color:var(--pink-mid)">Product</span></h1>
-    <p>Share your handmade creation with the world</p>
-  </div>
+<body class="dashboard-body">
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+    <div>
+
+        <h1 class="logo">
+            KalaKriti
+        </h1>
+
+        <p class="tagline">
+            Empowering Women Artisans ✨
+        </p>
+
+        <div class="sidebar-menu">
+
+            <div class="menu-item" 
+            onclick="window.location.href='/seller_dashboard'">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>Dashboard</span>
+
+            </div>
+
+            <div class="menu-item active"
+            onclick="window.location.href='/add_product'">
+
+                <i class="fa-solid fa-plus"></i>
+
+                <span>Add Product</span>
+
+            </div>
+
+            <div class="menu-item"
+ onclick="window.location.href='/manage_products'">
+                <i class="fa-solid fa-box"></i>
+
+                <span>Manage Products</span>
+
+            </div>
+
+            <div class="menu-item"
+ onclick="window.location.href='/orders'">
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span>Orders</span>
+
+            </div>
+
+            <div class="menu-item"
+ onclick="window.location.href='/wishlist'">
+                <i class="fa-solid fa-heart"></i>
+
+                <span>Wishlist</span>
+
+            </div>
+
+            <div class="menu-item"
+ onclick="window.location.href='/profile'">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>Profile</span>
+
+            </div>
+
+            <div class="menu-item"
+             onclick="window.location.href='/login'">
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BOTTOM CARD -->
+
+    <div class="sidebar-bottom">
+
+        <h3>
+            Grow Your Store 🚀
+        </h3>
+
+        <p>
+            Reach more buyers and boost your sales.
+        </p>
+
+        <button>
+            Explore
+        </button>
+
+    </div>
+
+</div>
+<!-- ================= MAIN CONTENT ================= -->
+
+<div class="main-content">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>
+                Add New Product ✨
+            </h1>
+
+            <p>
+                Upload and manage your handmade creations
+            </p>
+
+        </div>
+
+        <div class="profile-box">
+
+            <img
+            src="../static/images/profile.jpg.jpeg">
+
+            <div>
+
+                <h4 id="sellerName">
+                    Seller
+                </h4>
+
+                <p>
+                    Artisan Seller
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FORM CARD -->
+
+    <div class="add-product-card">
+
+        <form
+        action="/add_product"
+        method="POST"
+        enctype="multipart/form-data"
+        class="product-form">
+
+            <!-- PRODUCT NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Product Name
+                </label>
+
+                <input
+                type="text"
+                name="title"
+                placeholder="Enter product name"
+                required>
+
+            </div>
+
+            <!-- PRICE -->
+
+            <div class="form-group">
+
+                <label>
+                    Product Price
+                </label>
+
+                <input
+                type="number"
+                name="price"
+                placeholder="Enter product price"
+                required>
+
+            </div>
+
+            <!-- CATEGORY -->
+
+            <div class="form-group">
+
+                <label>
+                    Product Category
+                </label>
+
+                <select
+                name="category"
+                required>
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option>
+                        Handmade
+                    </option>
+
+                    <option>
+                        Decor
+                    </option>
+
+                    <option>
+                        Craft
+                    </option>
+
+                    <option>
+                        Art
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group">
+
+                <label>
+                    Product Description
+                </label>
+
+                <textarea
+                name="description"
+                rows="6"
+                placeholder="Write product details..."
+                required></textarea>
+
+            </div>
+
+            <!-- IMAGE -->
+
+            <div class="form-group">
+
+                <label>
+                    Upload Product Image
+                </label>
+
+                <input
+                type="file"
+                name="image"
+                accept="image/*"
+                required>
+
+            </div>
+
+            <!-- BUTTON -->
+
+            <button
+            type="submit"
+            class="publish-btn">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                Publish Product
+
+            </button>
+
+        </form>
+
+    </div>
+
 </div>
 
-<div class="container py-5" style="max-width:800px">
-  <div class="profile-card">
-    <div id="alertBox" style="display:none" class="mb-4"></div>
-    <form id="addForm" novalidate>
+<!-- NAME SCRIPT -->
 
-      <div class="row g-4">
-        <!-- Product Name -->
-        <div class="col-12">
-          <label class="form-label">Product Name *</label>
-          <input type="text" id="pName" class="form-control" placeholder="e.g. Handwoven Crochet Bag" required>
-          <div class="err-msg" id="nameErr">Product name is required</div>
-        </div>
-
-        <!-- Category + Price -->
-        <div class="col-md-6">
-          <label class="form-label">Category *</label>
-          <select id="pCat" class="form-control" required>
-            <option value="">Select category...</option>
-            <option value="bags">Bags &amp; Purses</option>
-            <option value="jewellery">Jewellery</option>
-            <option value="sarees">Sarees</option>
-            <option value="pottery">Pottery &amp; Vases</option>
-            <option value="bedsheets">Bedsheets</option>
-            <option value="crochet">Crochet Items</option>
-            <option value="art">Art &amp; Paintings</option>
-            <option value="decor">Home Decor</option>
-            <option value="clothes">Clothes</option>
-          </select>
-          <div class="err-msg" id="catErr">Please select a category</div>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Price (₹) *</label>
-          <div class="icon-wrap">
-            <span class="fi">₹</span>
-            <input type="number" id="pPrice" class="form-control" placeholder="e.g. 1200" min="1" required>
-          </div>
-          <div class="err-msg" id="priceErr">Please enter a valid price</div>
-        </div>
-
-        <!-- Stock + Original Price -->
-        <div class="col-md-6">
-          <label class="form-label">Stock Quantity</label>
-          <input type="number" id="pStock" class="form-control" placeholder="Available units (e.g. 10)" min="1" value="10">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Original Price (₹) <span style="color:var(--gray);font-size:.75rem">(for showing discount)</span></label>
-          <input type="number" id="pOrigPrice" class="form-control" placeholder="e.g. 1500" min="1">
-        </div>
-
-        <!-- Image Selection -->
-        <div class="col-12">
-          <label class="form-label">Product Image *</label>
-          <p style="font-size:.8rem;color:var(--gray);margin-bottom:10px">Choose from existing images or enter a custom filename from the images folder</p>
-          <div class="row g-2 mb-3" id="imageGrid">
-            <!-- Filled by JS -->
-          </div>
-          <div style="display:flex;gap:10px;align-items:center">
-            <input type="text" id="pImage" class="form-control" placeholder="Or type image filename, e.g. Crochet.jpeg" style="font-size:.85rem">
-          </div>
-          <div class="err-msg" id="imgErr">Please select or enter an image</div>
-          <div id="imgPreviewWrap" style="display:none;margin-top:12px">
-            <img id="imgPreview" style="height:150px;object-fit:cover;border-radius:10px;border:2px solid var(--pink)">
-          </div>
-        </div>
-
-        <!-- Description -->
-        <div class="col-12">
-          <label class="form-label">Description *</label>
-          <textarea id="pDesc" class="form-control" rows="4" placeholder="Describe your product — materials, dimensions, care instructions..." required style="resize:vertical"></textarea>
-          <div class="err-msg" id="descErr">Please write a description</div>
-        </div>
-
-        <!-- Featured -->
-        <div class="col-12">
-          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.875rem;font-weight:600">
-            <input type="checkbox" id="pFeatured" style="accent-color:var(--pink);width:16px;height:16px">
-            Mark as Featured Product (shows on Home page)
-          </label>
-        </div>
-
-        <div class="col-12">
-          <button type="submit" class="btn-pink w-100 justify-content-center" id="submitBtn">
-            🚀 List Product
-          </button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-<footer class="kk-footer">
-  <div class="container"><div class="footer-bottom text-center">© 2026 KalaKriti. All rights reserved.</div></div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../static/js/data.js"></script>
-<script src="../static/js/navbar.js"></script>
 <script>
-  renderNavbar('sell');
-  if (!getCurrentUser()) window.location.href = 'login.html';
 
-  const sampleImages = [
-    'Crochet.jpeg','Jewellery.jpeg','Madhubani Sarees.jpeg','Pottery.jpeg',
-    'Bedsheet.jpeg','Art.jpeg','Decor.jpeg','Candles.jpeg','bag.jpg',
-    'crochet purse.jpeg','vase.jpeg','sweater.jpg','Clothes.jpeg','purse1.jpeg'
-  ];
+const sellerName =
+localStorage.getItem("userName");
 
-  // Build image picker grid
-  document.getElementById('imageGrid').innerHTML = sampleImages.map(img => `
-    <div class="col-4 col-md-3 col-lg-2">
-      <div onclick="selectImage('${img}', this)" style="cursor:pointer;border-radius:8px;overflow:hidden;border:2px solid transparent;transition:var(--transition)" class="img-pick-card">
-        <img src="../static/images/${img}" style="width:100%;height:70px;object-fit:cover" onerror="this.parentElement.parentElement.style.display='none'">
-        <div style="font-size:.6rem;text-align:center;padding:3px;color:var(--gray);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${img}</div>
-      </div>
-    </div>`).join('');
+if(sellerName){
 
-  function selectImage(img, card) {
-    document.querySelectorAll('.img-pick-card').forEach(c => { c.style.borderColor = 'transparent'; });
-    card.style.borderColor = 'var(--pink)';
-    document.getElementById('pImage').value = img;
-    document.getElementById('imgPreview').src = '../static/images/' + img;
-    document.getElementById('imgPreviewWrap').style.display = 'block';
-  }
+    document.getElementById(
+        "sellerName"
+    ).innerText = sellerName;
+}
 
-  document.getElementById('pImage').addEventListener('input', function() {
-    if (this.value) {
-      document.getElementById('imgPreview').src = '../static/images/' + this.value;
-      document.getElementById('imgPreviewWrap').style.display = 'block';
-    }
-  });
-
-  document.getElementById('addForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const v = (id, cond) => { document.getElementById(id + 'Err').style.display = cond ? 'block' : 'none'; return cond; };
-    const name = document.getElementById('pName').value.trim();
-    const cat = document.getElementById('pCat').value;
-    const price = document.getElementById('pPrice').value;
-    const image = document.getElementById('pImage').value.trim();
-    const desc = document.getElementById('pDesc').value.trim();
-
-    let err = false;
-    if (v('name', !name)) err = true;
-    if (v('cat', !cat)) err = true;
-    if (v('price', !price || price < 1)) err = true;
-    if (v('img', !image)) err = true;
-    if (v('desc', !desc)) err = true;
-    if (err) return;
-
-    const btn = document.getElementById('submitBtn');
-    btn.textContent = 'Saving...'; btn.disabled = true;
-
-    const product = {
-      name, category: cat, price: parseInt(price),
-      originalPrice: parseInt(document.getElementById('pOrigPrice').value) || parseInt(price),
-      image, description: desc,
-      stock: parseInt(document.getElementById('pStock').value) || 10,
-      featured: document.getElementById('pFeatured').checked
-    };
-
-    saveSellerProduct(product);
-    const ab = document.getElementById('alertBox');
-    ab.style.display = 'block';
-    ab.innerHTML = '<div class="alert alert-success py-2">✅ Product listed successfully! Redirecting to dashboard...</div>';
-    setTimeout(() => window.location.href = 'seller_dashboard.html', 1800);
-  });
 </script>
+
 </body>
 </html>

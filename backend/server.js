@@ -2,12 +2,39 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
+const multer = require("multer");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+/* ================= MULTER ================= */
+
+const storage = multer.diskStorage({
+
+    destination:(req,file,cb)=>{
+
+        cb(
+            null,
+            path.join(
+                __dirname,
+                "../frontend/static/uploads"
+            )
+        );
+    },
+
+    filename:(req,file,cb)=>{
+
+        cb(
+            null,
+            Date.now() +
+            path.extname(file.originalname)
+        );
+    }
+});
+
+const upload = multer({ storage });
 /* ================= STATIC FILES ================= */
 
 app.use("/static", express.static(path.join(__dirname, "../frontend/static")));
@@ -91,7 +118,7 @@ app.post("/login", async (req, res) => {
     res.redirect("/seller_dashboard");
 }
 else{
-    res.redirect("/shop");
+    res.redirect("/dashboard");
 }
 });
 /* ================= SIGNUP ================= */
@@ -280,6 +307,126 @@ else{
 
 });
 
+/* ================= ADD PRODUCT PAGE ================= */
+
+app.get("/add_product", (req,res)=>{
+
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../frontend/templates/add_product.html"
+        )
+    );
+
+});
+/* ================= SAVE PRODUCT ================= */
+
+app.post(
+    "/add_product",
+    upload.single("image"),
+
+    (req,res)=>{
+
+        const {
+            title,
+            price,
+            category,
+            description
+        } = req.body;
+
+        const image =
+        "/static/uploads/" + req.file.filename;
+
+        const productsPath =
+        path.join(
+            __dirname,
+            "../database/products.json"
+        );
+
+        let products = [];
+
+        if(fs.existsSync(productsPath)){
+
+            products = JSON.parse(
+                fs.readFileSync(productsPath)
+            );
+        }
+
+        const newProduct = {
+
+            id:Date.now(),
+
+            title,
+            price,
+            category,
+            description,
+            image
+        };
+
+        products.push(newProduct);
+
+        fs.writeFileSync(
+            productsPath,
+            JSON.stringify(products,null,2)
+        );
+
+        res.redirect("/seller_dashboard");
+
+});
+/* ================= SAVE PRODUCT ================= */
+
+app.post(
+    "/add_product",
+    upload.single("image"),
+
+    (req,res)=>{
+
+        const {
+            title,
+            price,
+            category,
+            description
+        } = req.body;
+
+        const image =
+        "/static/uploads/" + req.file.filename;
+
+        const productsPath =
+        path.join(
+            __dirname,
+            "../database/products.json"
+        );
+
+        let products = [];
+
+        if(fs.existsSync(productsPath)){
+
+            products = JSON.parse(
+                fs.readFileSync(productsPath)
+            );
+        }
+
+        const newProduct = {
+
+            id:Date.now(),
+
+            title,
+            price,
+            category,
+            description,
+            image
+        };
+
+        products.push(newProduct);
+
+        fs.writeFileSync(
+            productsPath,
+            JSON.stringify(products,null,2)
+        );
+
+        res.redirect("/seller_dashboard");
+
+});
 /* ================= DASHBOARD ================= */
 app.get("/dashboard", (req, res) => {
 
@@ -352,15 +499,225 @@ app.get("/Craft_item", (req, res) => {
     
 });
 app.get("/wood_decor", (req, res) => {
-    
     res.sendFile(
         path.join(
             __dirname,
             "../frontend/templates/wood_decor.html"
         )
     );
+});
+/* ================= GET PRODUCTS ================= */
+
+app.get("/products", (req,res)=>{
+    const productsPath =
+    path.join(
+        __dirname,
+        "../database/products.json"
+    );
+    if(!fs.existsSync(productsPath)){
+
+        return res.json([]);
+    }
+    const products = JSON.parse(
+        fs.readFileSync(productsPath)
+    );
+    res.json(products);
+});
+
+/* ================= MANAGE PRODUCTS ================= */
+
+app.get("/manage_products", (req,res)=>{
+    
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../frontend/templates/manage_products.html"
+        )
+    );
     
 });
-app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000");
-})
+/* ================= DELETE PRODUCT ================= */
+
+/* ================= DELETE PRODUCT ================= */
+
+app.delete(
+"/delete_product/:id",
+
+(req,res)=>{
+
+    const id =
+    Number(req.params.id);
+
+    const productsPath =
+    path.join(
+        __dirname,
+        "../database/products.json"
+    );
+
+    if(!fs.existsSync(productsPath)){
+
+        return res.json({
+            success:false
+        });
+
+    }
+
+    let products =
+    JSON.parse(
+        fs.readFileSync(productsPath)
+    );
+
+    products =
+    products.filter(
+        product => product.id !== id
+    );
+
+    fs.writeFileSync(
+        productsPath,
+        JSON.stringify(products,null,2)
+    );
+
+    res.json({
+        success:true
+    });
+
+});
+/* ================= EDIT PRODUCT PAGE ================= */
+
+app.get(
+"/edit_product/:id",
+
+(req,res)=>{
+
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../frontend/templates/edit_product.html"
+        )
+    );
+
+});
+
+
+/* ================= UPDATE PRODUCT ================= */
+
+app.put(
+"/update_product/:id",
+
+(req,res)=>{
+
+    const id =
+    Number(req.params.id);
+
+    const productsPath =
+    path.join(
+        __dirname,
+        "../database/products.json"
+    );
+
+    let products =
+    JSON.parse(
+        fs.readFileSync(productsPath)
+    );
+
+    const index =
+    products.findIndex(
+        product => product.id === id
+    );
+
+    if(index === -1){
+
+        return res.json({
+            success:false
+        });
+
+    }
+
+    products[index] = {
+
+        ...products[index],
+
+        ...req.body
+    };
+
+    fs.writeFileSync(
+        productsPath,
+        JSON.stringify(products,null,2)
+    );
+
+    res.json({
+        success:true
+    });
+
+});
+/* ================= PROFILE ================= */
+
+app.get("/profile", (req,res)=>{
+
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../frontend/templates/profile.html"
+        )
+    );
+
+});
+/* ================= GET PROFILE ================= */
+
+app.get(
+"/get_profile",
+
+(req,res)=>{
+
+    const profilePath =
+    path.join(
+        __dirname,
+        "../database/profile.json"
+    );
+
+    if(!fs.existsSync(profilePath)){
+
+        return res.json({});
+    }
+
+    const profile =
+    JSON.parse(
+        fs.readFileSync(profilePath)
+    );
+
+    res.json(profile);
+
+});
+/* ================= SAVE PROFILE ================= */
+
+app.post(
+"/save_profile",
+
+(req,res)=>{
+
+    const profilePath =
+    path.join(
+        __dirname,
+        "../database/profile.json"
+    );
+
+    fs.writeFileSync(
+        profilePath,
+
+        JSON.stringify(
+            req.body,
+            null,
+            2
+        )
+    );
+
+    res.json({
+        success:true
+    });
+
+});
+
+
+    app.listen(3000, () => {
+        console.log("Server running on http://localhost:3000");
+    })

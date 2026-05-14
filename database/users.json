@@ -1,2 +1,14 @@
-[]
-  
+[
+  {
+    "name": "Kriansh",
+    "email": "kriansh2108@gmail.com",
+    "password": "$2b$10$q/z4.WxbNz.zj6AAjtUwzOmcLyxrcPyc7KattlpbUFxuZRxuiP/UC",
+    "role": "seller"
+  },
+  {
+    "name": "Adyvibh",
+    "email": "adyvibh212@gmail.com",
+    "password": "$2b$10$XBVIWy1ure0TkbgVlWxSAOQj.1d4qOdC2W52YLEqMtCLKJqlf3Lx6",
+    "role": "buyer"
+  }
+]

@@ -23,6 +23,7 @@
   "homepage": "https://github.com/TanyaAnand1105/A-Digital-Marketplace-for-Small-Scale-Women-Entrepreneurs#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "multer": "^2.1.1"
   }
 }
