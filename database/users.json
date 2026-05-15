@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "name": "Vibhansh",
+    "email": "vibhansh311@gmail.com",
+    "password": "$2b$10$MFfuu68gijLgyQELRHAckuCMio0U0OyiZ3Qa1Q632Kq//RRz0.xHK",
+    "role": "buyer"
+  },
+  {
+    "name": "Tanya Anand",
+    "email": "tanya.anandd1@gmail.com",
+    "password": "$2b$10$ZhS6yhMg9Rb7nWgs2dqkwOjSq7OeFsj6yE2Niq7oWahjXPbuklAIe",
+    "role": "buyer"
+  }
+]

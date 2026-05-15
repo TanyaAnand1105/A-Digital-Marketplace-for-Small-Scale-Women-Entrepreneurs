@@ -301,7 +301,7 @@ if (password !== confirmPassword) {
 }
 else{
 
-    res.redirect("/shop");
+    res.redirect("/dashboard");
 
 }
 
@@ -506,6 +506,40 @@ app.get("/wood_decor", (req, res) => {
         )
     );
 });
+
+app.get("/purse", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../frontend/templates/purse.html"
+        )
+    );
+});
+app.get("/bedsheet", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../frontend/templates/bedsheet.html"
+        )
+    );
+});
+app.get("/vase", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../frontend/templates/vase.html"
+        )
+    );
+});
+app.get("/saree", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../frontend/templates/saree.html"
+        )
+    );
+});
+
 /* ================= GET PRODUCTS ================= */
 
 app.get("/products", (req,res)=>{
